@@ -1,0 +1,100 @@
+.credits {
+  padding-top: 120px;
+  padding-bottom: 40px;
+}
+
+.credit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  margin-top: 70px;
+}
+
+.credit-card {
+  min-height: 200px;
+  background: var(--bg);
+  padding: 24px;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.credit-card:hover {
+  background: #11110f;
+  border-color: #555550;
+}
+
+.credit-id {
+  font: 400 11px var(--mono);
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.credit-card h3 {
+  font-size: 20px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.credit-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 14px;
+  max-width: 220px;
+}
+
+.credit-footnote {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin: 36px 0 0;
+  font: 400 10px var(--mono);
+  letter-spacing: 0.1em;
+  color: #64645f;
+}
+
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 400 10px var(--mono);
+  letter-spacing: 0.08em;
+  color: #64645f;
+  text-align: center;
+}
+
+.footer-meta span:last-child {
+  color: var(--muted);
+  max-width: 420px;
+}
+
+@media (max-width: 780px) {
+  .credits {
+    padding-top: 80px;
+  }
+
+  .credit-grid {
+    grid-template-columns: 1fr;
+    margin-top: 45px;
+  }
+
+  .credit-card {
+    min-height: auto;
+  }
+
+  .footer-meta {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer > a {
+    text-align: left;
+  }
+}

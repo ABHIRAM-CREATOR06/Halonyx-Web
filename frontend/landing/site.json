@@ -1,0 +1,40 @@
+{
+  "project": {
+    "name": "Halonyx",
+    "tagline": "private messaging built for the protocol-aware",
+    "version": "1.0.0",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/ABHIRAM-CREATOR06/Halonyx-Web",
+    "sourceRepository": "https://github.com/ABHIRAM-CREATOR06/Halonyx",
+    "atlasRepository": "https://github.com/ABHIRAM-CREATOR06/Atlas",
+    "appUrl": "https://halonyx.onrender.com"
+  },
+  "institution": {
+    "short": "SNGCE · KTU",
+    "name": "SNGCE, Kerala",
+    "affiliation": "APJ Abdul Kalam Technological University",
+    "year": 2026
+  },
+  "team": [
+    {
+      "id": "01",
+      "name": "Abhiram P",
+      "role": "Backend · Signal Protocol · Safety Numbers"
+    },
+    {
+      "id": "02",
+      "name": "Geo Jose",
+      "role": "Frontend · UI/UX · Theme System"
+    },
+    {
+      "id": "03",
+      "name": "Anirudh",
+      "role": "Frontend · Testing · WebTorrent Integration"
+    },
+    {
+      "id": "04",
+      "name": "Antony S Kannampuzha",
+      "role": "Database · Infrastructure · Key Storage"
+    }
+  ]
+}

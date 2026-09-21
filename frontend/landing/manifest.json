@@ -1,0 +1,16 @@
+[
+  "partials/head.html",
+  "partials/backdrop.html",
+  "partials/header.html",
+  "partials/main-open.html",
+  "partials/hero.html",
+  "partials/ticker.html",
+  "partials/protocol.html",
+  "partials/principles.html",
+  "partials/library.html",
+  "partials/atlas.html",
+  "partials/credits.html",
+  "partials/main-close.html",
+  "partials/footer.html",
+  "partials/foot.html"
+]

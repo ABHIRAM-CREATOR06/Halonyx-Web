@@ -1,0 +1,10 @@
+:root {
+  --bg: #050505;
+  --white: #f4f4f0;
+  --muted: #8e8e89;
+  --line: #262624;
+  --soft: #11110f;
+  --mono: 'DM Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}

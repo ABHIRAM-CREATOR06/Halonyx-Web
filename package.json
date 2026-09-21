@@ -1,0 +1,12 @@
+{
+  "name": "halonyx-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Halonyx public landing site — static HTML and CSS",
+  "scripts": {
+    "build:landing": "node scripts/assemble-landing.mjs",
+    "preview": "npx --yes serve frontend -l 4173"
+  },
+  "author": "Abhiram P, Geo Jose, Anirudh, Antony S Kannampuzha (SNGCE · KTU)",
+  "license": "AGPL-3.0"
+}

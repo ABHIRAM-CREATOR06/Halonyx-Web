@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="Halonyx — private messaging built for the protocol-aware." />
+    <meta name="author" content="Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha" />
+    <meta property="og:title" content="HALONYX / private by design" />
+    <meta property="og:description" content="A private communications layer for people who want to understand what happens between send and received." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://halonyx.onrender.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HALONYX / private by design" />
+    <meta name="twitter:description" content="A private communications layer for people who want to understand what happens between send and received." />
+    <title>HALONYX / private by design</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23050505' d='M0 0h32v32H0z'/%3E%3Cpath fill='%23f4f4f0' d='M16 2l12 6.9v14.2L16 30 4 23.1V8.9z'/%3E%3Ctext x='16' y='21.5' font-family='sans-serif' font-weight='700' font-size='16' fill='%23050505' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/landing.css" />
+  </head>
+  <body>
+
+    <div class="noise" aria-hidden="true"></div>
+    <div class="matrix matrix-a" aria-hidden="true"></div>
+    <div class="matrix matrix-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Halonyx home"
+        ><span class="brand-mark">H</span><span>HALONYX</span></a
+      >
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#protocol">PROTOCOL</a>
+        <a href="#principles">PRINCIPLES</a>
+        <a href="#atlas">ATLAS</a>
+        <a href="#credits">TEAM</a>
+      </nav>
+      <a class="nav-cta" href="https://halonyx.onrender.com" target="_blank" rel="noreferrer"
+        >OPEN APP <span>↗</span></a
+      >
+    </header>
+
+    <main id="top">
+
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="signal-dot" aria-hidden="true"></span> SECURE CHANNEL /
+            READY
+          </div>
+          <h1>Messages<br /><em>without</em><br />the middle.</h1>
+          <p class="hero-lede">
+            A private communications layer for people who want to understand
+            what happens between <span>send</span> and <span>received</span>.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button button-solid"
+              href="https://halonyx.onrender.com"
+              target="_blank"
+              rel="noreferrer"
+              >START A SECURE CHAT <span>→</span></a
+            >
+            <a class="button button-ghost" href="#protocol"
+              >READ THE PROTOCOL <span>↓</span></a
+            >
+          </div>
+          <div class="hero-meta">
+            <span>v1.0.0</span><span class="meta-line" aria-hidden="true"></span
+            ><span>OPEN SOURCE / AGPL-3.0</span>
+          </div>
+        </div>
+        <div class="hero-visual" role="img" aria-labelledby="handshake-label">
+          <div class="visual-label" id="handshake-label">LIVE / HANDSHAKE_01</div>
+          <div class="orbital-grid" aria-hidden="true">
+            <div class="orbit orbit-outer"></div>
+            <div class="orbit orbit-mid"></div>
+            <div class="orbit orbit-inner"></div>
+            <div class="node node-top">A</div>
+            <div class="node node-right">B</div>
+            <div class="node node-bottom">K</div>
+            <div class="core"><span>H</span></div>
+          </div>
+          <div class="visual-readout" aria-hidden="true">
+            <span>SESSION KEY</span><strong>•••• •••• 9F2A</strong
+            ><span class="readout-ok">✓ VERIFIED</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Halonyx capabilities">
+        <div>END-TO-END ENCRYPTED</div>
+        <span aria-hidden="true">✦</span>
+        <div>USID IDENTITY</div>
+        <span aria-hidden="true">✦</span>
+        <div>FORWARD SECRECY</div>
+        <span aria-hidden="true">✦</span>
+        <div>NO DATA BROKERS</div>
+        <span aria-hidden="true">✦</span>
+        <div>END-TO-END ENCRYPTED</div>
+      </section>
+
+      <section id="protocol" class="protocol section-shell">
+        <div class="section-intro">
+          <div class="section-index">01 / 05</div>
+          <h2>Make privacy<br /><span>legible.</span></h2>
+          <p>
+            Halonyx gives the interface a clear boundary: your identity, your
+            keys, your conversation. No black box theater.
+          </p>
+        </div>
+        <div class="trace-card">
+          <div class="trace-head">
+            <span>HALONYX / TRACE</span
+            ><span>SESSION 4A92 <i aria-hidden="true"></i></span>
+          </div>
+          <div class="trace-row">
+            <span class="trace-time">00:00.001</span
+            ><span class="trace-icon" aria-hidden="true">↗</span>
+            <div>
+              <strong>IDENTITY EXCHANGE</strong
+              ><small>USID resolves to a verifiable public identity.</small>
+            </div>
+            <b>OK</b>
+          </div>
+          <div class="trace-row active">
+            <span class="trace-time">00:00.084</span
+            ><span class="trace-icon" aria-hidden="true">◇</span>
+            <div>
+              <strong>SESSION ESTABLISHED</strong
+              ><small>X3DH + Double Ratchet channel is live.</small>
+            </div>
+            <b>OK</b>
+          </div>
+          <div class="trace-row">
+            <span class="trace-time">00:00.091</span
+            ><span class="trace-icon" aria-hidden="true">↯</span>
+            <div>
+              <strong>MESSAGE SEALED</strong
+              ><small>Payload is encrypted before it leaves your device.</small>
+            </div>
+            <b>OK</b>
+          </div>
+          <div class="trace-foot">
+            <span>TRACE COMPLETE</span><span>3 / 3 CHECKS PASSED</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="principles" class="principles section-shell">
+        <div class="section-intro">
+          <div class="section-index">02 / 05</div>
+          <h2>Built on<br /><span>first principles.</span></h2>
+        </div>
+        <div class="principle-grid">
+          <article class="principle">
+            <div class="card-number">A1</div>
+            <h3>IDENTITY<br />IS YOURS</h3>
+            <p>
+              USID-based identity keeps your account meaningful without making
+              your phone number the product.
+            </p>
+            <a href="https://halonyx.onrender.com" target="_blank" rel="noreferrer"
+              >EXPLORE IDENTITY →</a
+            >
+          </article>
+          <article class="principle">
+            <div class="card-number">B2</div>
+            <h3>SECRETS<br />MOVE FORWARD</h3>
+            <p>
+              Every exchange advances the ratchet. Compromise today does not
+              have to mean compromise forever.
+            </p>
+            <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noreferrer"
+              >VIEW SOURCE ↗</a
+            >
+          </article>
+          <article class="principle">
+            <div class="card-number">C3</div>
+            <h3>LESS<br />TO TRUST</h3>
+            <p>
+              Minimal metadata, direct intent, and a protocol you can inspect
+              instead of a promise you have to accept.
+            </p>
+            <a href="https://github.com/ABHIRAM-CREATOR06/Atlas" target="_blank" rel="noreferrer"
+              >LEARN WITH ATLAS ↗</a
+            >
+          </article>
+        </div>
+      </section>
+
+      <section id="library" class="library section-shell">
+        <div class="section-intro">
+          <div class="section-index">03 / 05</div>
+          <h2>The complete<br /><span>surface.</span></h2>
+          <p>
+            Read the implementation, audit the assumptions, and follow the
+            protocol from identity creation to encrypted delivery.
+          </p>
+        </div>
+        <div class="document-list">
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/README.md"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">README.md</span
+            ><strong>PROJECT OVERVIEW</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/tree/main/protocol"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">/protocol</span
+            ><strong>PROTOCOL MODULES</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/protocol/SECURITY_ANALYSIS.md"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">SECURITY_ANALYSIS.md</span
+            ><strong>SECURITY ANALYSIS</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/specification_docs/audit.md"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">specification_docs/audit.md</span
+            ><strong>AUDIT NOTES</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/tree/main/tests"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">/tests</span><strong>TEST SUITE</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/LICENSE"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">LICENSE</span><strong>AGPL-3.0 LICENSE</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+
+      <section id="atlas" class="atlas section-shell">
+        <div class="atlas-mark" aria-hidden="true">A</div>
+        <div>
+          <div class="section-index">04 / 05 · COMPANION PROJECT</div>
+          <h2>Understand the wire.</h2>
+          <p>
+            Atlas is a standalone protocol learning suite for tracing
+            handshakes, state machines, dependency graphs, and threat
+            scenarios. Learn the systems Halonyx is designed to protect.
+          </p>
+          <a
+            class="text-link"
+            href="https://github.com/ABHIRAM-CREATOR06/Atlas"
+            target="_blank"
+            rel="noreferrer"
+            >OPEN ATLAS ON GITHUB ↗</a
+          >
+        </div>
+      </section>
+
+      <section id="credits" class="credits section-shell">
+        <div class="section-intro">
+          <div class="section-index">05 / 05</div>
+          <h2>Built by<br /><span>the team.</span></h2>
+          <p>
+            Final-year project at SNGCE, Kerala ·
+            APJ Abdul Kalam Technological University · 2026.
+          </p>
+        </div>
+        <div class="credit-grid">
+          <article class="credit-card">
+            <div class="credit-id">01</div>
+            <h3>Abhiram P</h3>
+            <p>Backend · Signal Protocol · Safety Numbers</p>
+          </article>
+          <article class="credit-card">
+            <div class="credit-id">02</div>
+            <h3>Geo Jose</h3>
+            <p>Frontend · UI/UX · Theme System</p>
+          </article>
+          <article class="credit-card">
+            <div class="credit-id">03</div>
+            <h3>Anirudh</h3>
+            <p>Frontend · Testing · WebTorrent Integration</p>
+          </article>
+          <article class="credit-card">
+            <div class="credit-id">04</div>
+            <h3>Antony S Kannampuzha</h3>
+            <p>Database · Infrastructure · Key Storage</p>
+          </article>
+        </div>
+        <p class="credit-footnote">
+          <span>SNGCE · KTU</span>
+          <span class="meta-line" aria-hidden="true"></span>
+          <span>Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha</span>
+        </p>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span>
+      </div>
+      <div class="footer-meta">
+        <span>PRIVATE BY DESIGN / 2026</span>
+        <span>SNGCE · KTU · Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha</span>
+      </div>
+      <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a>
+    </footer>
+
+  </body>
+</html>
+
