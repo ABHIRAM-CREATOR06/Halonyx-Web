@@ -31,7 +31,7 @@ The hero headline is:
 
 The outlined word **without** gives the headline a glyph-like interruption and visually expresses the removal of unnecessary intermediaries. Supporting copy explains the product in plain language. The primary action opens the live encrypted messenger (external URL from `site.json` → `appUrl`); the secondary action scrolls to the protocol trace.
 
-The right side contains a live-handshake visualization: three orbital paths, three protocol nodes, and an H core. It is conceptual rather than a literal cryptographic diagram. The session readout uses a masked key and a verified state so no secret material is exposed in the marketing UI.
+The right side contains a live-handshake visualization: three orbital paths, three protocol nodes, and an H core. Enhanced by `frontend/js/handshake.js`, it visually maps the X3DH sequence (FETCH, BUNDLE, DH1..DH4, HKDF, INIT, ESTABLISHED) with 3D tilt parallax, reactive canvas dot grid, and draggable nodes, while maintaining full static HTML/CSS fallback if JS is disabled. The session readout uses an illustrative masked key fingerprint and an ESTABLISHED state.
 
 ### 3. Capability ticker
 
@@ -108,6 +108,7 @@ At widths below 780px:
 | `frontend/landing/` | Modular landing source (`site.json`, partials, manifest) |
 | `frontend/index.html` | Assembled landing page (`npm run build:landing`) |
 | `frontend/css/landing.css` | Landing entry stylesheet; imports `css/landing/*` modules |
+| `frontend/js/handshake.js` | Interactive X3DH handshake panel script (progressive enhancement) |
 | `frontend/design.html` | Standalone design reference |
 | Main [Halonyx](https://github.com/ABHIRAM-CREATOR06/Halonyx) repo | Messenger, protocol, backend, tests |
 

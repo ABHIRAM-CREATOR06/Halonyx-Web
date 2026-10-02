@@ -12,6 +12,7 @@ Maintain the **Halonyx public website** — a static, protocol-aware landing exp
 | `frontend/landing/` | `site.json`, partials, manifest |
 | `frontend/css/landing.css` | Entry stylesheet |
 | `frontend/css/landing/` | CSS modules (tokens, credits, …) |
+| `frontend/js/handshake.js` | Interactive X3DH handshake panel script |
 | `frontend/design.html` | Design reference |
 | `design.md` | Visual and content specification |
 | `scripts/assemble-landing.mjs` | Build `index.html` from partials |
@@ -45,7 +46,7 @@ Maintain the **Halonyx public website** — a static, protocol-aware landing exp
 ## Design constraints
 
 - Monochrome palette; Space Grotesk + DM Mono.
-- Static HTML/CSS only on the landing page (no required JavaScript).
+- Static HTML/CSS fallback by default; `frontend/js/handshake.js` provides progressive enhancement for the interactive X3DH hero handshake panel.
 - Decorative visuals: `aria-hidden` where appropriate.
 - Respect `prefers-reduced-motion`.
 - Do not claim formal verification or guaranteed security.

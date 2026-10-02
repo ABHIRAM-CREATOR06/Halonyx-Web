@@ -9,6 +9,7 @@ Static public website for [Halonyx](https://github.com/ABHIRAM-CREATOR06/Halonyx
 | `frontend/index.html` | Built landing page (served at site root) |
 | `frontend/landing/` | Modular source — `site.json`, partials, manifest |
 | `frontend/css/` | Landing styles (`landing.css` + `landing/*` modules) |
+| `frontend/js/handshake.js` | Interactive X3DH handshake panel visualization script |
 | `frontend/design.html` | Standalone design reference |
 | `scripts/assemble-landing.mjs` | Stitches partials into `index.html` |
 | `design.md` / `agent.md` | Product and editing guide |
