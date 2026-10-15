@@ -38,9 +38,10 @@ The right side contains a live-handshake visualization: three orbital paths, thr
 A narrow horizontal strip communicates the product boundary through short statements:
 
 - End-to-end encrypted
-- USID identity
+- Signal Groups v1
+- Client-side DLP
+- Encrypted threads
 - Forward secrecy
-- No data brokers
 
 The ticker is intentionally static and restrained. It should not become a distracting marquee.
 
@@ -56,11 +57,11 @@ Each row includes a timestamp, event symbol, explanatory text, and an `OK` state
 
 ### 5. Principles
 
-Three cards explain the product philosophy:
+Three cards highlight current product capabilities:
 
-- **Identity is yours** — USID-based identity without making a phone number the product.
-- **Secrets move forward** — Ratcheting means compromise does not imply permanent compromise.
-- **Less to trust** — Minimal metadata and inspectable source reduce the trust surface.
+- **Groups stay private** — Signal Groups v1 uses pairwise Double Ratchet encryption and decentralized discovery without server-side group state.
+- **Check before encryption** — Client-side DLP checks AWS, GitHub, Slack, private-key, and Luhn-valid payment-card patterns before encryption.
+- **Threads under cipher** — Nested replies use recursive root resolution in a slide-over panel, with group and reply metadata kept inside ciphertext.
 
 The cards are outlined through the shared grid line rather than heavy shadows or rounded containers.
 
@@ -73,6 +74,7 @@ The landing page must expose the real project surface, not only the chat experie
 - Security analysis (`protocol/SECURITY_ANALYSIS.md`)
 - Audit notes (`specification_docs/audit.md`)
 - Test suite (`/tests`)
+- Local benchmark (`scripts/benchmark.js`)
 - AGPL-3.0 license (`LICENSE`)
 
 Links should point directly to the corresponding GitHub paths so the page stays current with the repository.
@@ -94,12 +96,15 @@ Atlas is presented as the learning companion to Halonyx. The section describes i
 
 At widths below 780px:
 
-- Hide the text navigation links while keeping the Open App action visible.
+- Place the text navigation links on a compact second row while keeping the Open App action visible.
 - Stack the hero content and handshake visualization.
+- Keep the capability ticker horizontally scrollable by touch.
 - Convert the principles grid to a single column.
 - Convert document rows from three columns to a compact two-row layout.
 - Reduce section spacing while preserving large editorial headlines.
 - Keep the Atlas section readable as a single-column card.
+
+At widths below 480px, reduce headline scale and section spacing, tighten the protocol trace columns, and keep legal copy comfortably readable without changing laptop or desktop styles.
 
 ## Implementation map
 
@@ -107,6 +112,7 @@ At widths below 780px:
 | --- | --- |
 | `frontend/landing/` | Modular landing source (`site.json`, partials, manifest) |
 | `frontend/index.html` | Assembled landing page (`npm run build:landing`) |
+| `frontend/privacy.html` / `frontend/terms.html` | Standalone legal pages linked from the global footer |
 | `frontend/css/landing.css` | Landing entry stylesheet; imports `css/landing/*` modules |
 | `frontend/js/handshake.js` | Interactive X3DH handshake panel script (progressive enhancement) |
 | `frontend/design.html` | Standalone design reference |

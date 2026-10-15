@@ -7,6 +7,8 @@ Static public website for [Halonyx](https://github.com/ABHIRAM-CREATOR06/Halonyx
 | Path | Purpose |
 | --- | --- |
 | `frontend/index.html` | Built landing page (served at site root) |
+| `frontend/privacy.html` | Privacy policy for the site and hosted messenger |
+| `frontend/terms.html` | Terms for the site and hosted messenger |
 | `frontend/landing/` | Modular source — `site.json`, partials, manifest |
 | `frontend/css/` | Landing styles (`landing.css` + `landing/*` modules) |
 | `frontend/js/handshake.js` | Interactive X3DH handshake panel visualization script |
@@ -46,7 +48,7 @@ Built at **SNGCE, Kerala** · APJ Abdul Kalam Technological University · 2026
 | --- | --- |
 | Abhiram P | Backend · Signal Protocol · Safety Numbers |
 | Geo Jose | Frontend · UI/UX · Theme System |
-| Anirudh | Frontend · Testing · WebTorrent Integration |
+| Anirudh | Frontend · Documentation |
 | Antony S Kannampuzha | Database · Infrastructure · Key Storage |
 
 ## License

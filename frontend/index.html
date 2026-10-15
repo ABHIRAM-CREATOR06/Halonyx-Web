@@ -100,13 +100,13 @@
       <section class="ticker" aria-label="Halonyx capabilities">
         <div>END-TO-END ENCRYPTED</div>
         <span aria-hidden="true">✦</span>
-        <div>USID IDENTITY</div>
+        <div>SIGNAL GROUPS V1</div>
+        <span aria-hidden="true">✦</span>
+        <div>CLIENT-SIDE DLP</div>
+        <span aria-hidden="true">✦</span>
+        <div>ENCRYPTED THREADS</div>
         <span aria-hidden="true">✦</span>
         <div>FORWARD SECRECY</div>
-        <span aria-hidden="true">✦</span>
-        <div>NO DATA BROKERS</div>
-        <span aria-hidden="true">✦</span>
-        <div>END-TO-END ENCRYPTED</div>
       </section>
 
       <section id="protocol" class="protocol section-shell">
@@ -159,26 +159,27 @@
       <section id="principles" class="principles section-shell">
         <div class="section-intro">
           <div class="section-index">02 / 05</div>
-          <h2>Built on<br /><span>first principles.</span></h2>
+          <h2>More control<br /><span>in every message.</span></h2>
         </div>
         <div class="principle-grid">
           <article class="principle">
             <div class="card-number">A1</div>
-            <h3>IDENTITY<br />IS YOURS</h3>
+            <h3>GROUPS<br />STAY PRIVATE</h3>
             <p>
-              USID-based identity keeps your account meaningful without making
-              your phone number the product.
+              Signal Groups v1 uses pairwise Double Ratchet encryption for
+              each member, with decentralized discovery and no server-side
+              group state.
             </p>
-            <a href="https://halonyx.onrender.com" target="_blank" rel="noreferrer"
-              >EXPLORE IDENTITY →</a
+            <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx/tree/main/protocol" target="_blank" rel="noreferrer"
+              >INSPECT GROUP PROTOCOL ↗</a
             >
           </article>
           <article class="principle">
             <div class="card-number">B2</div>
-            <h3>SECRETS<br />MOVE FORWARD</h3>
+            <h3>CHECK BEFORE<br />ENCRYPTION</h3>
             <p>
-              Every exchange advances the ratchet. Compromise today does not
-              have to mean compromise forever.
+              Client-side DLP checks AWS, GitHub, Slack, private-key, and
+              Luhn-valid payment-card patterns before encryption.
             </p>
             <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noreferrer"
               >VIEW SOURCE ↗</a
@@ -186,13 +187,13 @@
           </article>
           <article class="principle">
             <div class="card-number">C3</div>
-            <h3>LESS<br />TO TRUST</h3>
+            <h3>THREADS<br />UNDER CIPHER</h3>
             <p>
-              Minimal metadata, direct intent, and a protocol you can inspect
-              instead of a promise you have to accept.
+              Follow nested replies in a slide-over panel with recursive root
+              resolution; group and reply metadata stays inside ciphertext.
             </p>
-            <a href="https://github.com/ABHIRAM-CREATOR06/Atlas" target="_blank" rel="noreferrer"
-              >LEARN WITH ATLAS ↗</a
+            <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx/tree/main/frontend" target="_blank" rel="noreferrer"
+              >VIEW THREADING UI ↗</a
             >
           </article>
         </div>
@@ -203,8 +204,8 @@
           <div class="section-index">03 / 05</div>
           <h2>The complete<br /><span>surface.</span></h2>
           <p>
-            Read the implementation, audit the assumptions, and follow the
-            protocol from identity creation to encrypted delivery.
+            Read the implementation, audit the assumptions, and inspect the
+            28 group, DLP, and threading tests plus the local benchmark suite.
           </p>
         </div>
         <div class="document-list">
@@ -254,6 +255,15 @@
           >
           <a
             class="document"
+            href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/scripts/benchmark.js"
+            target="_blank"
+            rel="noreferrer"
+            ><span class="doc-type">npm run benchmark</span
+            ><strong>LOCAL BENCHMARK</strong
+            ><span class="doc-arrow" aria-hidden="true">↗</span></a
+          >
+          <a
+            class="document"
             href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/LICENSE"
             target="_blank"
             rel="noreferrer"
@@ -288,8 +298,7 @@
           <div class="section-index">05 / 05</div>
           <h2>Built by<br /><span>the team.</span></h2>
           <p>
-            Final-year project at SNGCE, Kerala ·
-            APJ Abdul Kalam Technological University · 2026.
+            Final-year project · 2026.
           </p>
         </div>
         <div class="credit-grid">
@@ -306,7 +315,7 @@
           <article class="credit-card">
             <div class="credit-id">03</div>
             <h3>Anirudh</h3>
-            <p>Frontend · Testing · WebTorrent Integration</p>
+            <p>Frontend · Documentation</p>
           </article>
           <article class="credit-card">
             <div class="credit-id">04</div>
@@ -315,8 +324,6 @@
           </article>
         </div>
         <p class="credit-footnote">
-          <span>SNGCE · KTU</span>
-          <span class="meta-line" aria-hidden="true"></span>
           <span>Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha</span>
         </p>
       </section>
@@ -329,9 +336,13 @@
       </div>
       <div class="footer-meta">
         <span>PRIVATE BY DESIGN / 2026</span>
-        <span>SNGCE · KTU · Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha</span>
+        <span>Abhiram P · Geo Jose · Anirudh · Antony S Kannampuzha</span>
       </div>
-      <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a>
+      <nav class="footer-links" aria-label="Legal and project links">
+        <a href="privacy.html">PRIVACY</a>
+        <a href="terms.html">TERMS</a>
+        <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a>
+      </nav>
     </footer>
 
     <script defer src="js/handshake.js"></script>

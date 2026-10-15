@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="How Halonyx handles account information, encrypted messages, device data, and website requests." />
+    <title>Privacy Policy / HALONYX</title>
+    <link rel="stylesheet" href="css/landing.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#protocol">PROTOCOL</a>
+        <a href="index.html#principles">CAPABILITIES</a>
+        <a href="terms.html">TERMS</a>
+      </nav>
+      <a class="nav-cta" href="https://halonyx.onrender.com" target="_blank" rel="noreferrer">OPEN APP <span>↗</span></a>
+    </header>
+
+    <main class="legal-main section-shell">
+      <div class="legal-heading">
+        <div class="legal-updated">POLICY / LAST UPDATED 15 OCTOBER 2026</div>
+        <h1>Privacy<br /><em>policy.</em></h1>
+        <p>This policy explains how information is handled when you visit the Halonyx website or use the Halonyx-hosted messenger at <a href="https://halonyx.onrender.com" target="_blank" rel="noreferrer">halonyx.onrender.com</a>. A self-hosted copy is operated by its administrator, who sets their own privacy practices.</p>
+      </div>
+
+      <div class="legal-content">
+        <section>
+          <h2>1. Who operates Halonyx</h2>
+          <p>Halonyx is an open-source academic project maintained by its developers. The hosted demo is experimental and is not a production or business-critical messaging service. For privacy questions or requests, contact the maintainers through the <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noreferrer">Halonyx project repository</a>. Do not put private personal information or security reports in a public issue; use the repository’s <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx/security/policy" target="_blank" rel="noreferrer">security policy</a> for vulnerability reports.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Information the messenger handles</h2>
+          <ul>
+            <li><strong>Account and identity details.</strong> The hosted service may process the name, email address, pseudonymous USID, and account credentials you provide or receive when registering. Identity details are kept separately from operational account data and linked using a hash of the USID.</li>
+            <li><strong>Contacts and public keys.</strong> The service processes contact relationships and public key bundles needed to find recipients and establish encrypted sessions. Private cryptographic keys and session state are stored in your browser’s IndexedDB; the project describes these private keys as non-exportable browser CryptoKey objects.</li>
+            <li><strong>Messages and delivery data.</strong> Message contents are encrypted in the client before relay. The service handles ciphertext and routing information needed to deliver it, including recipient identifiers and connection events. If a recipient is offline, ciphertext is queued and the project says it is deleted after it is delivered on reconnect.</li>
+            <li><strong>Groups and threads.</strong> Group membership and reply details are carried in encrypted message envelopes. The relay routes pairwise ciphertext and does not maintain group rosters or group tables.</li>
+            <li><strong>DLP checks.</strong> The client scans text before encryption for configured secret or personal-data patterns. Depending on the selected mode, it may block, warn, or redact locally. The project describes compliance audit logging as local to the client; review your device and browser storage if you share a device.</li>
+            <li><strong>File transfers.</strong> WebTorrent transfers use peer-to-peer WebRTC connections. The other peer and network infrastructure used to establish a connection may receive technical connection details, such as your IP address. A peer-to-peer transfer is not an anonymity service.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Website and connection information</h2>
+          <p>When you load the site or hosted app, the hosting and network providers may process standard request and security data such as IP address, browser and device information, requested URL, timestamps, and error or rate-limit events. The landing site does not currently implement advertising trackers or analytics pixels. It loads fonts from Google Fonts, and links to GitHub and the hosted messenger; those providers receive connection data when your browser contacts them and have their own privacy terms.</p>
+        </section>
+
+        <section>
+          <h2>4. Why information is used</h2>
+          <p>Information is used to create and secure accounts, establish encrypted sessions, route and queue messages, manage contacts and public keys, run client-side DLP checks, prevent abuse, maintain the service, and respond to support or security requests. The project does not describe selling message content or personal information for advertising.</p>
+        </section>
+
+        <section>
+          <h2>5. Storage and retention</h2>
+          <p>Information may be stored in the browser, in the hosted service’s databases, or by infrastructure providers. Delivered offline mailbox ciphertext is removed by the application after delivery. Other account, contact, key, and security records may remain while needed to operate or protect the service; hosting and backup retention is controlled in part by providers. The demo does not promise a particular deletion deadline for every record.</p>
+          <p>You can clear local browser storage to remove locally stored keys and session data, but this can make your account or message history inaccessible and does not delete data held by the hosted service. Contact the operator through the project repository to request access, correction, or deletion. Requests may need verification and may be limited by security, technical, or legal requirements. A self-hosted user should contact that instance’s administrator.</p>
+        </section>
+
+        <section>
+          <h2>6. Sharing and service providers</h2>
+          <p>Information is shared with intended recipients as part of messaging, and with hosting or network providers as needed to operate the website and hosted app. A peer-to-peer file recipient receives the file and connection information required by the transfer. Information may also be disclosed when required by applicable law or to address abuse, security incidents, or threats to users and the service.</p>
+        </section>
+
+        <section>
+          <h2>7. Security and limits</h2>
+          <p>Halonyx uses client-side encryption based on X3DH and the Double Ratchet, but it is an experimental project and no system can promise perfect security. Encryption does not conceal all routing or connection metadata, protect a compromised device, prevent a recipient from copying content, or anonymize peer-to-peer traffic. Keep your device and browser secure and verify Safety Numbers with your contacts.</p>
+        </section>
+
+        <section>
+          <h2>8. Children and legal rights</h2>
+          <p>The hosted demo is not designed for children. If you believe a child has provided personal information to the hosted service, contact the maintainers. Depending on where you live, you may have rights to access, correct, erase, or object to certain processing of your personal information. Contact the service operator to make a request; mandatory rights under applicable law are not limited by this policy.</p>
+        </section>
+
+        <section>
+          <h2>9. Changes to this policy</h2>
+          <p>This policy may change as the project and hosted service change. The date above shows when this page was last updated. Material changes will be reflected here.</p>
+        </section>
+      </div>
+      <a class="legal-back" href="index.html">← BACK TO HALONYX</a>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand" href="index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <div class="footer-meta"><span>PRIVATE BY DESIGN / 2026</span><span>OPEN SOURCE / AGPL-3.0</span></div>
+      <nav class="footer-links" aria-label="Legal and project links"><a href="privacy.html" aria-current="page">PRIVACY</a><a href="terms.html">TERMS</a><a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
+    </footer>
+  </body>
+</html>
