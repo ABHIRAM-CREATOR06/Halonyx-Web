@@ -20,6 +20,8 @@ Implementation, protocol, backend, and tests live in the main [Halonyx](https://
 
 ## Local preview
 
+On Windows, run `scripts/start_preview.bat` and keep its window open while using the site. It builds the landing page and starts the preview server at `http://localhost:4173`.
+
 ```bash
 npm run build:landing
 npm run preview
@@ -50,6 +52,10 @@ Built at **SNGCE, Kerala** · APJ Abdul Kalam Technological University · 2026
 | Geo Jose | Frontend · UI/UX · Theme System |
 | Anirudh | Frontend · Documentation |
 | Antony S Kannampuzha | Database · Infrastructure · Key Storage |
+
+## Contributor thanks
+
+Thanks to [@amrithavdev](https://github.com/amrithavdev) for the cross-platform contributor setup guide and troubleshooting improvements ([PR #13](https://github.com/ABHIRAM-CREATOR06/Halonyx/pull/13)).
 
 ## License
 
