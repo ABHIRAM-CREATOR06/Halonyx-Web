@@ -72,22 +72,35 @@
   color: var(--muted);
 }
 
-.contributor-credit p {
+.contributor-copy p {
   max-width: 720px;
   color: #bab9b2;
   font-size: 13px;
   line-height: 1.65;
 }
 
-.contributor-credit a {
+.contributor-copy a {
   color: var(--white);
   text-decoration: underline;
   text-decoration-color: #686861;
   text-underline-offset: 3px;
 }
 
-.contributor-credit a:hover {
+.contributor-copy a:hover {
   text-decoration-color: var(--white);
+}
+
+.contributor-copy .contributor-pr {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 12px;
+  font: 400 10px var(--mono);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+.contributor-copy .contributor-pr:hover {
+  color: var(--muted);
 }
 
 .footer-meta {
