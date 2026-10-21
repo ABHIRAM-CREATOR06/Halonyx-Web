@@ -10,6 +10,7 @@ The public landing site for [Halonyx](https://github.com/ABHIRAM-CREATOR06/Halon
 - Current messenger capabilities, including private group messaging, client-side DLP, and encrypted threads.
 - Links to the source, protocol documentation, audits, tests, and benchmarks.
 - Standalone [Privacy Policy](frontend/privacy.html) and [Terms of Use](frontend/terms.html) pages.
+- A homepage blog preview and dedicated [project blog](frontend/blog.html), with the complete text of the long-form article and three DEV.to posts presented as local articles with original-source links.
 - Responsive layouts for phones, tablets, and desktop screens.
 
 The messenger implementation, backend, protocol, and tests live in the [main Halonyx repository](https://github.com/ABHIRAM-CREATOR06/Halonyx). This repository is the landing site only.
@@ -58,8 +59,10 @@ python -m http.server 4173 -d frontend
 | `frontend/index.html` | Generated landing page |
 | `frontend/privacy.html` | Privacy policy for the landing site and hosted messenger |
 | `frontend/terms.html` | Terms for the landing site and hosted messenger |
+| `frontend/blog.html` / `frontend/blog/` | Blog index and long-form project article |
 | `frontend/landing/` | Page partials, site data, and assembly order |
 | `frontend/css/landing.css` | Main styles and responsive breakpoints |
+| `frontend/css/blog.css` | Blog and article styles, using the landing page theme |
 | `frontend/css/landing/` | Styles for landing-page sections, including credits |
 | `frontend/js/handshake.js` | Interactive X3DH handshake visualization |
 | `frontend/design.html` | Standalone design reference |

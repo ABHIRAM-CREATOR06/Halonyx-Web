@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="Most developers think TLS means secure. It doesn&#39;t.  TLS protects the transport. The server still..." />
+    <title>I Built a Signal Protocol Messenger from Scratch with X3DH, Double Ratchet, Safety Numbers, P2P File Transfer / HALONYX</title>
+    <link rel="stylesheet" href="../css/blog.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="../index.html#protocol">PROTOCOL</a><a href="../index.html#principles">CAPABILITIES</a><a href="../blog.html" aria-current="page">BLOG</a></nav>
+      <a class="nav-cta" href="https://halonyx.onrender.com" target="_blank" rel="noreferrer">OPEN APP <span>↗</span></a>
+    </header>
+    <main class="article-main section-shell">
+      <a class="legal-back" href="../blog.html">← ALL ARTICLES</a>
+      <article class="article-content">
+        <header class="article-top"><span class="blog-kicker">ENGINEERING / DEV COMMUNITY</span><h1>I Built a Signal Protocol Messenger from Scratch with X3DH, Double Ratchet, Safety Numbers, P2P File Transfer</h1><div class="article-meta">BY ABHIRAM&nbsp;&nbsp;·&nbsp;&nbsp;JUNE 29, 2026</div><p class="article-source">Originally published on <a href="https://dev.to/abhiramp_2005/i-built-a-signal-protocol-messenger-from-scratch-with-x3dh-double-ratchet-safety-numbers-p2p-1jh7" target="_blank" rel="noopener noreferrer">DEV Community ↗</a></p></header>
+        <p>Most developers think TLS means secure. It doesn't.</p>
+
+<p>TLS protects the transport. The server still decides whose <br>
+public key you encrypt to. A malicious server hands you its <br>
+own key, reads everything you send, re-encrypts it, and <br>
+forwards it along. Neither party notices.</p>
+
+<p>This is the attack most "end-to-end encrypted" apps are <br>
+silently vulnerable to. We built Halonyx to close it.</p>
+
+<blockquote>
+<p>🔗 <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noopener noreferrer">GitHub</a> · 🌐 <a href="https://halonyx.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo</a></p>
+</blockquote>
+
+<hr>
+<h2>
+  <a name="why-build-another-messenger" href="#why-build-another-messenger">
+  </a>
+  Why Build Another Messenger?
+</h2>
+
+<p>Most "secure messenger" projects I've seen fall into one of two categories:</p>
+
+<ol>
+<li>They use TLS and call it "encrypted" — which protects the transport, not the content from the server</li>
+<li>They use a crypto library as a black box without understanding what's happening inside
+I wanted to actually implement the Signal Protocol from first principles: understand every DH operation in X3DH, trace how the Double Ratchet chains evolve, and design a system where the relay server is architecturally excluded from reading anything — not just by policy, but by cryptographic design.</li>
+</ol>
+
+<p>This is Halonyx. Here's what we built and what we learned.</p>
+
+<hr>
+<h2>
+  <a name="the-core-problem-trust-no-server" href="#the-core-problem-trust-no-server">
+  </a>
+  The Core Problem: Trust No Server
+</h2>
+
+<p>The typical E2EE claim is "only you and the recipient can read messages." But there's a hidden assumption: that the server gives you the <em>real</em> public key of your contact.</p>
+
+<p>A malicious server can silently substitute its own key during the X3DH handshake. You encrypt to the server's key, it decrypts, re-encrypts to your contact, and neither party knows. This is a MITM attack at the key distribution layer.</p>
+
+<p>Signal solves this with Safety Numbers. We implemented the same mechanism — more on that later.</p>
+
+<hr>
+<h2>
+  <a name="signal-protocol-whats-actually-happening" href="#signal-protocol-whats-actually-happening">
+  </a>
+  Signal Protocol: What's Actually Happening
+</h2>
+<h3>
+  <a name="x3dh-key-exchange" href="#x3dh-key-exchange">
+  </a>
+  X3DH Key Exchange
+</h3>
+
+<p>X3DH (Extended Triple Diffie-Hellman) lets two parties establish a shared secret even if one of them is offline. It uses four DH operations:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight plaintext"><code>DH1 = DH(IKa,  SPKb)   — Alice's identity key    × Bob's signed pre-key
+DH2 = DH(EKa,  IKb)    — Alice's ephemeral key   × Bob's identity key
+DH3 = DH(EKa,  SPKb)   — Alice's ephemeral key   × Bob's signed pre-key
+DH4 = DH(EKa,  OPKb)   — Alice's ephemeral key   × Bob's one-time pre-key
+
+SK  = HKDF(DH1 ‖ DH2 ‖ DH3 ‖ DH4)
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Why four operations instead of one? Each adds a layer:</p>
+
+<ul>
+<li>
+<strong>DH1</strong> binds both parties' long-term identities</li>
+<li>
+<strong>DH2 + DH3</strong> add ephemeral randomness — even if Alice's long-term key is later compromised, past sessions are safe</li>
+<li>
+<strong>DH4</strong> uses a one-time pre-key (OPK) — once consumed, it's gone. Provides deniability and replay protection.
+The server stores Bob's pre-key bundle and relays Alice's <code>x3dh_init</code> packet. It never derives <code>SK</code> — it never has enough information to.</li>
+</ul>
+
+<h3>
+  <a name="double-ratchet" href="#double-ratchet">
+  </a>
+  Double Ratchet
+</h3>
+
+<p>After X3DH establishes the root key, every message advances the Double Ratchet:</p>
+
+<p><strong>Symmetric ratchet:</strong> Each message derives a unique message key from the current chain key via HKDF. The chain key advances. Message keys are used once and discarded.</p>
+
+<p><strong>DH ratchet:</strong> Every time the conversation direction changes (reply), a new DH exchange runs. This derives fresh root and chain keys, "healing" the session even if a message key was previously compromised.</p>
+
+<p>The result:</p>
+
+<ul>
+<li>
+<strong>Forward secrecy</strong> — compromising key N reveals nothing about keys 1…N-1</li>
+<li>
+<strong>Post-compromise security</strong> — after a breach, the DH ratchet step re-randomises the session
+### Key Persistence: The Hard Part</li>
+</ul>
+
+<p>WebCrypto's <code>CryptoKey</code> objects can be marked non-exportable — the raw key material is never accessible to JavaScript. We store these directly in IndexedDB.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="c1">// Keys never leave as raw bytes</span>
+<span class="kd">const</span> <span class="nx">keyPair</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nf">generateKey</span><span class="p">(</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ECDH</span><span class="dl">"</span><span class="p">,</span> <span class="na">namedCurve</span><span class="p">:</span> <span class="dl">"</span><span class="s2">P-256</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="kc">false</span><span class="p">,</span> <span class="c1">// non-exportable</span>
+  <span class="p">[</span><span class="dl">"</span><span class="s2">deriveKey</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">deriveBits</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">);</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Session state (root key, chain keys, ratchet DH keys, message counters) is serialised and persisted across page reloads. Each USID maps 1:1 to a stable cryptographic identity.</p>
+
+
+<hr>
+
+<h2>
+  <a name="safety-numbers-closing-the-mitm-gap" href="#safety-numbers-closing-the-mitm-gap">
+  </a>
+  Safety Numbers: Closing the MITM Gap
+</h2>
+
+<p>Even with perfect E2EE, a malicious key server breaks everything. Safety Numbers are the solution.</p>
+
+<p>Each user generates a P-256 ECDH identity key pair at registration. Both parties independently compute:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="nx">safetyNumber</span> <span class="o">=</span> <span class="nx">SHA</span><span class="o">-</span><span class="mi">256</span><span class="p">(</span>
+    <span class="nf">sort_lex</span><span class="p">([</span>
+        <span class="nc">SHA256</span><span class="p">(</span><span class="nx">aliceUsid</span><span class="p">)</span> <span class="o">+</span> <span class="nx">alicePubKey</span><span class="p">,</span>
+        <span class="nc">SHA256</span><span class="p">(</span><span class="nx">bobUsid</span><span class="p">)</span>   <span class="o">+</span> <span class="nx">bobPubKey</span>
+    <span class="p">])</span>
+<span class="p">)</span>
+<span class="c1">// → 12 groups of 5 digits, 60 digits total</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Lexicographic sorting ensures both parties derive an identical result regardless of who initiates. They compare the number out-of-band (voice call, in person). If they match — no MITM. If they differ — a key was substituted.</p>
+
+<p>We also implement <strong>key change detection</strong>: the last-seen safety number is stored in localStorage. On every subsequent session, if the number changes, a prominent warning is shown before proceeding.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight plaintext"><code>Without Safety Numbers (vulnerable):
+
+  Alice                  Server (malicious)              Bob
+    │── GET /public-key ──→│                               │
+    │←─ Mallory's key ─────│  ← server substitutes        │
+    │  encrypts to Mallory  │                               │
+    │── ciphertext ────────→│── re-encrypts to Bob ────────→│
+
+With Safety Numbers (protected):
+
+  Alice sees:  12345 67890 11111
+  Bob   sees:  72891 23456 78901   ← mismatch → attack caught ✅
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+
+<hr>
+
+<h2>
+  <a name="p2p-file-transfer-via-webtorrent" href="#p2p-file-transfer-via-webtorrent">
+  </a>
+  P2P File Transfer via WebTorrent
+</h2>
+
+<p>Server involvement in file transfer is a massive privacy leak. Our solution: the server never touches files.</p>
+
+<ol>
+<li>Sender seeds the file using WebTorrent — BitTorrent running in the browser via WebRTC data channels</li>
+<li>A magnet URI is sent to the recipient through the encrypted message channel</li>
+<li>Recipient's browser leeches directly from the sender</li>
+<li>Public trackers handle peer discovery only — they never see file contents</li>
+<li>STUN/TURN handles NAT traversal for users behind symmetric NATs
+</li>
+</ol>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight plaintext"><code>Sender Browser                    Recipient Browser
+  └── WebTorrent.seed(file)
+        └── magnet URI (via encrypted WS)  ──→
+                                              WebTorrent.download()
+              WebRTC DataChannel ────────────────────────────→
+              (direct P2P, server not involved)
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Live upload speed, download speed, progress, and seeding ratio are displayed in real time via WebTorrent's event API.</p>
+
+
+<hr>
+
+<h2>
+  <a name="database-architecture-dual-isolation" href="#database-architecture-dual-isolation">
+  </a>
+  Database Architecture: Dual Isolation
+</h2>
+
+<p>Identity metadata and operational data live in separate SQLite databases, linked only by <code>SHA-256(USID)</code>. Plaintext identity is never stored anywhere.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight plaintext"><code>identity.db    →   name · email · hashed_usid
+app.db         →   users · contacts · mailbox (hashed_usid only)
+keys.db        →   X3DH public key bundles (hashed_usid only)
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Even if <code>app.db</code> is fully compromised, an attacker gets hashed USIDs and encrypted message payloads — no names, no emails, no identity. The databases are only correlated by <code>SHA-256(USID)</code>, which is a one-way mapping.</p>
+
+
+<hr>
+
+<h2>
+  <a name="offline-mailbox-atmostonce-delivery" href="#offline-mailbox-atmostonce-delivery">
+  </a>
+  Offline Mailbox: At-Most-Once Delivery
+</h2>
+
+<p>When a recipient is offline, the server queues the encrypted payload. On their next WebSocket reconnect, all queued messages are flushed and immediately deleted:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight sql"><code><span class="n">Sender</span> <span class="err">→</span> <span class="n">Server</span> <span class="p">(</span><span class="n">recipient</span> <span class="n">offline</span><span class="p">)</span>
+  <span class="err">└──</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mailbox</span> <span class="p">(</span><span class="n">encrypted_payload</span><span class="p">)</span>
+  <span class="err">└──</span> <span class="p">{</span> <span class="k">type</span><span class="p">:</span> <span class="nv">"queued"</span> <span class="p">}</span>   <span class="err">←</span> <span class="n">sender</span> <span class="n">sees</span> <span class="n">clock</span> <span class="n">icon</span>
+
+<span class="n">Recipient</span> <span class="n">reconnects</span>
+  <span class="err">└──</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">mailbox</span> <span class="k">WHERE</span> <span class="n">recipient</span> <span class="o">=</span> <span class="o">?</span>
+  <span class="err">└──</span> <span class="k">forward</span> <span class="k">each</span> <span class="n">message</span> <span class="n">via</span> <span class="n">WebSocket</span>
+  <span class="err">└──</span> <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">mailbox</span> <span class="k">WHERE</span> <span class="n">recipient</span> <span class="o">=</span> <span class="o">?</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>The server stores only the already-encrypted payload — it cannot read the content. Deletion on flush ensures no permanent retention.</p>
+
+
+<hr>
+
+<h2>
+  <a name="cryptographic-primitives-summary" href="#cryptographic-primitives-summary">
+  </a>
+  Cryptographic Primitives Summary
+</h2>
+
+<div class="table-wrapper-paragraph"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Algorithm</th>
+<th>Key Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symmetric Encryption</td>
+<td>AES-256-GCM</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Key Derivation</td>
+<td>HKDF-SHA256</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Hashing</td>
+<td>SHA-256</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Key Exchange</td>
+<td>X25519 (ECDH)</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Identity / Safety Numbers</td>
+<td>P-256 (ECDH)</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Message Authentication</td>
+<td>HMAC-SHA256</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Pre-Key Signing</td>
+<td>Ed25519</td>
+<td>256 bits</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Guarantees:</strong> forward secrecy · post-compromise security · HMAC authentication · deniability · pseudonymity · MITM detection</p>
+
+
+<hr>
+
+<h2>
+  <a name="what-we-got-wrong-and-fixed" href="#what-we-got-wrong-and-fixed">
+  </a>
+  What We Got Wrong (and Fixed)
+</h2>
+
+<p><strong>Curve inconsistency.</strong> Signal uses Curve25519 throughout. We used P-256 for identity keys because WebCrypto's ECDH is more consistent across browsers for that curve. The trade-off: P-256 is NIST-standardised (some distrust NIST curves post-Snowden). X25519 is used for X3DH key exchange where performance matters more.</p>
+
+<p><strong>OPK exhaustion.</strong> One-time pre-keys are consumed per session. If a user goes offline for a long time, their OPK supply can be exhausted. We added a <code>/keys/replenish</code> endpoint and OPK monitoring, but automatic client-side replenishment is on the roadmap.</p>
+
+<p><strong>WebRTC IP leaks.</strong> WebTorrent uses WebRTC, which can leak local and public IPs via STUN. Documented in our STRIDE threat model — mitigation requires a VPN or disabling WebRTC at the browser level.</p>
+
+
+<hr>
+
+<h2>
+  <a name="roadmap" href="#roadmap">
+  </a>
+  Roadmap
+</h2>
+
+<ul>
+<li>[ ] Safety Number QR code scan</li>
+<li>[ ] Post-quantum cryptography (CRYSTALS-Dilithium / SPHINCS+)</li>
+<li>[ ] Multi-device session sync</li>
+<li>[ ] Group messaging via Sender Keys</li>
+<li>[ ] Voice &amp; video (WebRTC)</li>
+<li>[ ] Push notifications (Web Push / VAPID)</li>
+</ul>
+
+
+<hr>
+
+<h2>
+  <a name="try-it-contribute" href="#try-it-contribute">
+  </a>
+  Try It / Contribute
+</h2>
+
+<p>🔗 <strong>GitHub:</strong> <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noopener noreferrer">https://github.com/ABHIRAM-CREATOR06/Halonyx</a><br>
+🌐 <strong>Live:</strong> <a href="https://halonyx.onrender.com" target="_blank" rel="noopener noreferrer">https://halonyx.onrender.com</a><br>
+📄 <strong>Threat Model:</strong> <code>datathreat/datathreat.md</code> — STRIDE analysis, 17 attack surfaces<br>
+📊 <strong>Benchmarks:</strong> <code>benchmark/benchmark.md</code> — X3DH, Double Ratchet, WebSocket, SQLite latencies</p>
+
+<p>Self-host in three commands:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight shell"><code>git clone https://github.com/ABHIRAM-CREATOR06/Halonyx.git
+<span class="nb">cd </span>halonyx <span class="o">&amp;&amp;</span> npm <span class="nb">install
+</span>npm start
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Happy to discuss any of the protocol decisions in the comments — especially the curve choice, the safety number design, or the dual-database isolation model.</p>
+
+
+<hr>
+
+
+      </article>
+      
+<section class="dev-discussion" aria-labelledby="discussion-title"><h2 id="discussion-title">DEV.to discussion</h2><p class="dev-discussion-note">10 public comments from the original DEV.to discussion.</p><article class="dev-comment"><div class="dev-comment-meta"><a href="https://dev.to/evans_owusu_6801c8d54ae89" target="_blank" rel="noopener noreferrer">Evans Owusu</a><time datetime="2026-06-29T11:27:35Z">June 29, 2026</time></div><div class="dev-comment-body"><p>Impressive build! Encryption at this level is something <br>
+I think about a lot with Yhuu (yhuu.life) — an anonymous <br>
+Q&amp;A app where session privacy is everything.</p>
+
+<p>We're not at Double Ratchet level but the core challenge <br>
+is similar: how do you make people genuinely trust that <br>
+their anonymity is protected? </p>
+
+<p>What made you choose X3DH over simpler key exchange <br>
+approaches for this project?</p>
+
+</div><div class="dev-comment-replies"><article class="dev-comment dev-comment-reply"><div class="dev-comment-meta"><a href="https://dev.to/abhiramp_2005" target="_blank" rel="noopener noreferrer">Abhiram</a><time datetime="2026-06-30T10:39:04Z">June 30, 2026</time></div><div class="dev-comment-body"><p>Good question! Short answer, X3DH was specifically built for <br>
+asynchronous first contact, and that's something simpler DH <br>
+approaches just aren't great at.</p>
+
+<p>With plain ECDH, both parties basically need to be online at the <br>
+same time to exchange keys. X3DH gets around that by having Bob <br>
+pre-upload a bundle (identity key, signed pre-key, a few one-time <br>
+pre-keys) to the server ahead of time. So, when Alice wants to <br>
+start talking to him, she doesn't need him present at all, that is she <br>
+just grabs his bundle, runs four DH operations on her side, and <br>
+ends up with the same shared secret Bob will derive once he comes <br>
+online and processes her message.</p>
+
+<p>The other big reason is forward secrecy right from message one. <br>
+Since ephemeral keys get mixed into those DH operations alongside <br>
+the long-term identity keys, even that very first message is <br>
+protected, so if a long-term key gets compromised down the line, <br>
+it doesn't unravel that initial exchange.</p>
+
+<p>For something like an anonymous Q&amp;A app where both people are <br>
+probably online at the same time anyway, the offline initiation <br>
+part might matter less day-to-day. But honestly the forward <br>
+secrecy piece still feels worth having, especially given how much <br>
+trust users are putting into "this session is actually private."</p>
+
+</div></article></div></article><article class="dev-comment"><div class="dev-comment-meta"><a href="https://dev.to/abhiramp_2005" target="_blank" rel="noopener noreferrer">Abhiram</a><time datetime="2026-06-30T10:04:43Z">June 30, 2026</time></div><div class="dev-comment-body"><p>Thanks for the detailed read 💖 genuinely appreciate it. The <br>
+lexicographic sort for safety numbers was one of those details <br>
+that took way longer to get right than I expected. Sounds trivial <br>
+on paper, but both parties have to land on the exact same result <br>
+independently, with zero coordination, so even small ordering <br>
+mistakes break the whole thing silently.</p>
+
+<p>On the agent-to-agent angle:  that's a really interesting <br>
+application actually. X3DH was more or less built for this exact <br>
+scenario. The protocol assumes Bob might be completely offline <br>
+when Alice reaches out, which is the whole reason pre-key bundles <br>
+exist. Alice just fetches Bob's signed pre-key and a one-time <br>
+pre-key ahead of time, runs the four DH operations on her end, and <br>
+gets a shared secret without needing Bob present at all. If your <br>
+agents are finding and contacting each other asynchronously, that <br>
+"set up a secure channel with someone who isn't even there right <br>
+now" property is basically the core problem X3DH was designed to <br>
+solve.</p>
+
+<p>Where it gets trickier for agents specifically is identity <br>
+verification. Safety Numbers work because two humans can just read <br>
+60 digits to each other on a call and trust their own ears. Agents <br>
+don't have that you'd need some other out-of-band trust anchor <br>
+instead, like signed identity assertions or a registry of some <br>
+kind, to get an equivalent guard against MITM.</p>
+
+<p>Anyway, curious to see where you take the Opportunity Skill if you <br>
+keep building on it.</p>
+
+</div></article><article class="dev-comment"><div class="dev-comment-meta"><a href="https://dev.to/reitermann" target="_blank" rel="noopener noreferrer">Pascal Reitermann</a><time datetime="2026-07-01T06:48:08Z">July 1, 2026</time></div><div class="dev-comment-body"><p>This is awesome!</p>
+
+</div></article><article class="dev-comment"><div class="dev-comment-meta"><a href="https://dev.to/vinimabreu" target="_blank" rel="noopener noreferrer">Vinicius Pereira</a><time datetime="2026-07-01T08:48:21Z">July 1, 2026</time></div><div class="dev-comment-body"><p>The curve mix you flagged as the thing you got wrong is imo actually a forced trade-off between two of your own guarantees, not really a mistake. The whole reason the P-256 identity keys are interesting is that you kept them non-exportable in WebCrypto, so the raw material never touches JS. But SubtleCrypto only gave you the NIST curves for ECDH for years, X25519 and Ed25519 support is recent and still uneven across engines. So the moment you want a real non-exportable CryptoKey you're basically pushed onto P-256, because doing X25519 identity keys means pulling in noble or libsodium, and now the key lives in JS memory and you've lost the exact isolation property that made the design worth writing about. Your two goals, Signal's curves everywhere vs keys the runtime physically can't export, are quietly in tension, and WebCrypto is what breaks the tie. Worth saying the NIST distrust is more "we can't prove the seed constants are clean" than "it's known broken", so a P-256 identity key sitting next to X25519 for the actual X3DH exchange isn't a hole, it's mostly extra surface and cognitive load from running more primitives than you strictly need.</p>
+
+<p>The nice part is this is aging out. X25519/Ed25519 in WebCrypto is shipping across most engines now, so at some point you can move identity onto X25519 and still keep the non-exportable guarantee, which closes the inconsistency w/o giving anything up. fwiw the OPK exhaustion and the WebRTC STUN leak being in the "what we got wrong" section instead of buried is the part that made me trust the rest of it.</p>
+
+</div><div class="dev-comment-replies"><article class="dev-comment dev-comment-reply"><div class="dev-comment-meta"><a href="https://dev.to/abhiramp_2005" target="_blank" rel="noopener noreferrer">Abhiram</a><time datetime="2026-07-01T12:37:41Z">July 1, 2026</time></div><div class="dev-comment-body"><p>This is exactly the framing I was missing when I wrote that section. I knew something felt off about calling it a mistake, just couldn't say why. Now I can: non-exportable CryptoKey and Signal's curve consistency are two separate goals, and it's WebCrypto's historical ECDH support that forces you to pick between them. Pulling in noble or libsodium for X25519 identity keys does give up the isolation property that made the design worth having. Keys the runtime physically can't export is just a stronger guarantee than "we pinky-swear not to serialize them."<br>
+The NIST framing is also more precise than what I had in my head. "Can't prove the seed constants are clean" isn't "known broken," different claim, and the gap matters when you're reasoning about risk in a non-production context like this.<br>
+Also good to know about the X25519/Ed25519 WebCrypto update, I'll track that. Moving identity onto X25519 once engines agree closes the inconsistency without losing the non-exportable guarantee. Cleaner than either of the trade-offs I was stuck between.<br>
+And appreciate the callout on OPK exhaustion and the STUN leak being visible rather than buried, that was a deliberate call, good to know it reads as intended.</p>
+
+</div><div class="dev-comment-replies"><article class="dev-comment dev-comment-reply"><div class="dev-comment-meta"><a href="https://dev.to/vinimabreu" target="_blank" rel="noopener noreferrer">Vinicius Pereira</a><time datetime="2026-07-01T13:00:37Z">July 1, 2026</time></div><div class="dev-comment-body"><p>Yeah exactly, and honestly the non-production framing is the right place to be. Most projects at this stage either overclaim production-ready or quietly hide the sharp edges, so shipping the STRIDE model and the benchmarks right next to the honest caveats is what makes it land. One heads-up for whenever you do the X25519 move: gate it behind runtime feature detection rather than assuming it, probe crypto.subtle for X25519 and keep the P-256 path as a fallback, otherwise you quietly break identity for anyone on an engine that hasn't shipped it yet. The long-lived identity key is what makes the backwards-compat fiddly, but you clearly already think this way. Good read, nice work on it.</p>
+
+</div><div class="dev-comment-replies"><article class="dev-comment dev-comment-reply"><div class="dev-comment-meta"><a href="https://dev.to/abhiramp_2005" target="_blank" rel="noopener noreferrer">Abhiram</a><time datetime="2026-07-01T15:18:28Z">July 1, 2026</time></div><div class="dev-comment-body"><p>Good catch on the feature detection point. Probing crypto.subtle for X25519 and keeping P-256 as a fallback rather than assuming engine parity makes sense, especially for identity keys. A silent breakage there isn't a per-session problem, it breaks identity, which is a lot worse. Will build it that way when the migration happens. Thanks for the read.</p>
+
+</div></article></div></article></div></article></div></article><article class="dev-comment"><div class="dev-comment-meta"><a href="https://dev.to/richard_smith_154156d471ef" target="_blank" rel="noopener noreferrer">Richard Smith</a><time datetime="2026-07-01T19:02:54Z">July 1, 2026</time></div><div class="dev-comment-body"><p>The "server hands you its own key" attack vector is the one most devs never think about. TLS protecting transport vs. actually verifying who you're encrypting to — that's the gap most E2EE apps quietly fall through.</p>
+
+</div><div class="dev-comment-replies"><article class="dev-comment dev-comment-reply"><div class="dev-comment-meta"><a href="https://dev.to/abhiramp_2005" target="_blank" rel="noopener noreferrer">Abhiram</a><time datetime="2026-07-02T03:58:26Z">July 2, 2026</time></div><div class="dev-comment-body"><p>Exactly, and the frustrating part is most apps market themselves as E2EE without ever addressing it. TLS is table stakes, not a guarantee. The key server is the attack surface and Safety Numbers are basically the only practical answer that doesn't require trusting the infrastructure.</p>
+
+</div></article></div></article></section>
+<p class="article-disclaimer">This article was originally published on DEV Community by Abhiram. <a href="https://dev.to/abhiramp_2005/i-built-a-signal-protocol-messenger-from-scratch-with-x3dh-double-ratchet-safety-numbers-p2p-1jh7" target="_blank" rel="noopener noreferrer">Read the original and join the discussion ↗</a></p>
+    </main>
+    <footer class="site-footer">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <div class="footer-meta"><span>PRIVATE BY DESIGN / 2026</span><span>OPEN SOURCE / AGPL-3.0</span></div>
+      <nav class="footer-links" aria-label="Legal and project links"><a href="../blog.html">BLOG</a><a href="../privacy.html">PRIVACY</a><a href="../terms.html">TERMS</a><a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
+    </footer>
+  </body>
+</html>

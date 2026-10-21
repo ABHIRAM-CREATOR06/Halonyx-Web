@@ -1,0 +1,85 @@
+@import './landing.css';
+
+.blog-main { padding-top: 72px; padding-bottom: 88px; }
+.blog-hero { max-width: 720px; padding: 30px 0 76px; }
+.blog-kicker { color: var(--muted); font: 11px var(--mono); letter-spacing: .14em; }
+.blog-hero h1 { margin: 22px 0 20px; font-size: clamp(52px, 8vw, 96px); line-height: .98; letter-spacing: -.065em; }
+.blog-hero h1 em { color: var(--muted); font-style: normal; }
+.blog-hero p { max-width: 520px; color: var(--muted); font-size: 18px; line-height: 1.6; }
+.blog-list-heading { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 0; }
+.blog-list-heading h2 { margin: 0; font-size: 22px; font-weight: 500; }
+.blog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.blog-card { min-height: 260px; border-bottom: 1px solid var(--line); }
+.blog-card:nth-child(odd) { border-right: 1px solid var(--line); }
+.blog-card:nth-child(even) { padding-left: 32px; }
+.blog-card-link { display: flex; height: 100%; min-height: 260px; flex-direction: column; align-items: flex-start; padding: 28px 32px 26px 0; }
+.blog-card:nth-child(even) .blog-card-link { padding-right: 0; }
+.blog-card-meta { color: var(--muted); font: 10px var(--mono); letter-spacing: .1em; }
+.blog-card-meta span { padding-inline: 5px; }
+.blog-card h3 { max-width: 560px; margin: 20px 0 10px; font-size: clamp(20px, 2.5vw, 28px); line-height: 1.2; letter-spacing: -.025em; }
+.blog-card p { margin: 0 0 24px; max-width: 560px; color: var(--muted); line-height: 1.55; }
+.blog-read { margin-top: auto; color: var(--white); font: 10px var(--mono); letter-spacing: .1em; }
+.blog-read span { margin-left: 8px; }
+.blog-card-link:hover h3, .blog-card-link:hover .blog-read { color: #c8c8bd; }
+.blog-main > .legal-back { display: inline-block; margin-top: 38px; }
+
+.article-main { max-width: 900px; padding-top: 38px; padding-bottom: 88px; }
+.article-top { margin-bottom: 38px; }
+.article-top .blog-kicker { display: block; margin-bottom: 16px; }
+.article-top h1 { max-width: 850px; margin: 0 0 18px; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; letter-spacing: -.055em; }
+.article-meta { color: var(--muted); font: 11px var(--mono); letter-spacing: .06em; }
+.article-source { margin: 16px 0 0; color: var(--muted); font: 11px var(--mono); }
+.article-source a, .article-disclaimer a { text-decoration: underline; text-underline-offset: 3px; }
+.article-content { max-width: 720px; margin-inline: auto; color: #d5d5cf; font-size: 17px; line-height: 1.8; }
+.article-content .toc { margin: 0 0 44px; padding: 22px 26px; border: 1px solid var(--line); background: var(--soft); font-size: 14px; line-height: 1.55; }
+.article-content .toc b { display: block; margin-bottom: 10px; color: var(--muted); font: 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.article-content .toc ol { columns: 2; column-gap: 30px; margin: 0; padding-left: 20px; }
+.article-content .toc li { break-inside: avoid; padding: 3px 0; }
+.article-content a { text-decoration: underline; text-underline-offset: 3px; }
+.article-content a:hover { color: var(--white); }
+.article-content h2 { margin: 52px 0 12px; padding-top: 10px; font-size: 30px; line-height: 1.2; letter-spacing: -.03em; }
+.article-content h3 { margin: 34px 0 10px; font-size: 22px; line-height: 1.3; }
+.article-content h4 { margin: 26px 0 8px; font-size: 18px; }
+.article-content p, .article-content ul, .article-content ol { margin: 0 0 18px; }
+.article-content li { margin: 0 0 8px; }
+.article-content blockquote { margin: 28px 0; padding: 2px 0 2px 20px; border-left: 2px solid var(--white); color: var(--muted); }
+.article-content pre, .article-content code { font-family: var(--mono); }
+.article-content pre { overflow-x: auto; padding: 18px; border: 1px solid var(--line); background: var(--soft); font-size: 13px; }
+.article-content table { display: block; overflow-x: auto; border-collapse: collapse; }
+.article-content th, .article-content td { padding: 9px 12px; border: 1px solid var(--line); text-align: left; }
+.article-content img, .article-content video, .article-content iframe { max-width: 100%; }
+.article-content img, .article-content video { height: auto; }
+.article-content iframe { width: 100%; border: 1px solid var(--line); }
+.article-disclaimer { max-width: 720px; margin: 48px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.dev-discussion { max-width: 720px; margin: 64px auto 0; padding-top: 32px; border-top: 1px solid var(--line); }
+.dev-discussion h2 { margin: 0 0 8px; font-size: 26px; letter-spacing: -.03em; }
+.dev-discussion-note, .dev-discussion-empty { margin: 0 0 22px; color: var(--muted); font: 11px var(--mono); }
+.dev-comment { padding: 22px 0; border-top: 1px solid var(--line); }
+.dev-comment-meta { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; font: 11px var(--mono); }
+.dev-comment-meta a { color: var(--white); }
+.dev-comment-meta time { color: var(--muted); }
+.dev-comment-body { color: #d5d5cf; font-size: 15px; line-height: 1.65; overflow-wrap: anywhere; }
+.dev-comment-body p { margin: 0 0 12px; }
+.dev-comment-body p:last-child { margin-bottom: 0; }
+.dev-comment-body img, .dev-comment-body iframe { max-width: 100%; }
+.dev-comment-body pre { overflow-x: auto; padding: 14px; border: 1px solid var(--line); background: var(--soft); font: 12px/1.5 var(--mono); }
+.dev-comment-replies { margin: 18px 0 0 12px; padding-left: 20px; border-left: 1px solid var(--line); }
+.dev-comment-reply { padding-bottom: 0; border-top: 0; }
+
+@media (max-width: 780px) {
+  .blog-main { padding-top: 44px; padding-bottom: 60px; }
+  .blog-hero { padding: 28px 0 54px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card:nth-child(odd) { border-right: 0; }
+  .blog-card:nth-child(even) { padding-left: 0; }
+  .blog-card-link, .blog-card:nth-child(even) .blog-card-link { min-height: 225px; padding: 24px 0; }
+  .article-main { padding-top: 28px; }
+  .article-content { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .blog-hero h1 { font-size: clamp(46px, 13vw, 64px); }
+  .blog-list-heading { display: block; }
+  .blog-list-heading h2 { margin-top: 10px; }
+  .article-content .toc ol { columns: 1; }
+  .article-content h2 { font-size: 25px; }
+}

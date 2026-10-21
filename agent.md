@@ -9,6 +9,8 @@ Maintain the **Halonyx public website** — a static, protocol-aware landing exp
 | Path | Purpose |
 | --- | --- |
 | `frontend/index.html` | Assembled landing page |
+| `frontend/blog.html` / `frontend/blog/` | Blog index and long-form project article |
+| `frontend/landing/partials/blog.html` | Homepage blog preview |
 | `frontend/landing/` | `site.json`, partials, manifest |
 | `frontend/css/landing.css` | Entry stylesheet |
 | `frontend/css/landing/` | CSS modules (tokens, credits, …) |
@@ -20,6 +22,7 @@ Maintain the **Halonyx public website** — a static, protocol-aware landing exp
 ## Route contract
 
 - `/` — landing page (`frontend/index.html`)
+- `/blog.html` — blog index; `/blog/building-halonyx.html` — long-form article
 - `/design.html` — design reference
 - **Messenger** — external: `site.json` → `appUrl` (default [halonyx.onrender.com](https://halonyx.onrender.com))
 - **Source / protocol / tests** — links to main Halonyx GitHub repo (`sourceRepository` in `site.json`)

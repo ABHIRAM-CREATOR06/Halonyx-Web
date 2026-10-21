@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="A long-form reflection on privacy, metadata, encrypted communication, and the principles guiding Halonyx." />
+    <title>Privacy, Communication, and the Philosophy Behind Halonyx / HALONYX</title>
+    <link rel="stylesheet" href="../css/blog.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="../index.html#protocol">PROTOCOL</a><a href="../index.html#principles">CAPABILITIES</a><a href="../blog.html" aria-current="page">BLOG</a>
+      </nav>
+      <a class="nav-cta" href="https://halonyx.onrender.com" target="_blank" rel="noreferrer">OPEN APP <span>↗</span></a>
+    </header>
+    <main class="article-main section-shell">
+      <a class="legal-back" href="../blog.html">← ALL ARTICLES</a>
+      <div class="article-content"><article><header class="article-top"><span class="blog-kicker">PROJECT LOG / 01</span><h1>Privacy, Communication, and the Philosophy Behind Halonyx</h1><div class="article-meta">BY ABHIRAM&nbsp;&nbsp;·&nbsp;&nbsp;44 MIN READ&nbsp;&nbsp;·&nbsp;&nbsp;OCTOBER 2026</div></header>
+<nav class="toc"><b>Contents</b><ol><li><a href="#introduction">Introduction</a></li><li><a href="#1-my-understanding-of-privacy-has-changed">1. My Understanding of Privacy Has Changed</a></li><li><a href="#2-i-started-thinking-about-communication-differently">2. I Started Thinking About Communication Differently</a></li><li><a href="#3-i-do-not-want-halonyx-to-become-an-observer">3. I Do Not Want Halonyx to Become an Observer</a></li><li><a href="#4-the-question-i-keep-coming-back-to">4. The Question I Keep Coming Back To</a></li><li><a href="#5-data-is-not-reality">5. Data Is Not Reality</a></li><li><a href="#6-i-do-not-want-communication-data-to-become-employee-profiles">6. I Do Not Want Communication Data to Become Employee Profiles</a></li><li><a href="#7-ai-makes-this-problem-more-serious">7. AI Makes This Problem More Serious</a></li><li><a href="#8-derived-data-is-also-sensitive">8. Derived Data Is Also Sensitive</a></li><li><a href="#9-combining-data-can-reveal-more-than-individual-data">9. Combining Data Can Reveal More Than Individual Data</a></li><li><a href="#10-end-to-end-encryption-is-necessary-but-it-is-not-the-whole-story">10. End-to-End Encryption Is Necessary, But It Is Not the Whole Story</a></li><li><a href="#11-i-see-metadata-differently-now">11. I See Metadata Differently Now</a></li><li><a href="#12-data-minimization-is-also-security">12. Data Minimization Is Also Security</a></li><li><a href="#13-i-want-local-processing-where-it-makes-sense">13. I Want Local Processing Where It Makes Sense</a></li><li><a href="#14-i-do-not-want-ai-to-become-an-excuse-for-data-collection">14. I Do Not Want AI to Become an Excuse for Data Collection</a></li><li><a href="#15-i-want-halonyx-to-work-with-minimum-necessary-context">15. I Want Halonyx to Work With Minimum Necessary Context</a></li><li><a href="#16-workplace-communication-makes-privacy-more-important">16. Workplace Communication Makes Privacy More Important</a></li><li><a href="#17-communication-features-are-behavioral-features">17. Communication Features Are Behavioral Features</a></li><li><a href="#18-read-receipts-should-be-a-deliberate-choice">18. Read Receipts Should Be a Deliberate Choice</a></li><li><a href="#19-presence-is-also-a-privacy-decision">19. Presence Is Also a Privacy Decision</a></li><li><a href="#20-i-want-to-rethink-message-persistence">20. I Want to Rethink Message Persistence</a></li><li><a href="#21-disappearing-messages-represent-a-different-philosophy">21. Disappearing Messages Represent a Different Philosophy</a></li><li><a href="#22-search-is-also-a-privacy-decision">22. Search Is Also a Privacy Decision</a></li><li><a href="#23-i-do-not-want-halonyx-to-build-behavioral-profiles">23. I Do Not Want Halonyx to Build Behavioral Profiles</a></li><li><a href="#24-privacy-is-also-about-power">24. Privacy Is Also About Power</a></li><li><a href="#25-i-want-architecture-to-reduce-the-amount-of-trust-required">25. I Want Architecture to Reduce the Amount of Trust Required</a></li><li><a href="#26-decentralization-alone-does-not-solve-privacy">26. Decentralization Alone Does Not Solve Privacy</a></li><li><a href="#27-i-want-halonyx-to-have-privacy-by-architecture">27. I Want Halonyx to Have Privacy by Architecture</a></li><li><a href="#28-i-want-to-ask-what-halonyx-should-never-know">28. I Want to Ask What Halonyx Should Never Know</a></li><li><a href="#29-privacy-should-be-part-of-the-user-experience">29. Privacy Should Be Part of the User Experience</a></li><li><a href="#30-i-want-privacy-to-be-visible-without-becoming-intrusive">30. I Want Privacy to Be Visible Without Becoming Intrusive</a></li><li><a href="#31-the-future-of-halonyx-should-not-be-collect-everything">31. The Future of Halonyx Should Not Be “Collect Everything”</a></li><li><a href="#32-my-privacy-principles-for-halonyx">32. My Privacy Principles for Halonyx</a></li><li><a href="#33-the-question-i-want-to-keep-asking">33. The Question I Want to Keep Asking</a></li><li><a href="#34-what-i-want-halonyx-to-become">34. What I Want Halonyx to Become</a></li><li><a href="#35-final-reflection">35. Final Reflection</a></li></ol></nav>
+<h2 id="introduction">Introduction</h2>
+<p>As I have been developing Halonyx, I initially thought about it mainly as a secure communication system. My focus was on things that are relatively easy to define technically: end-to-end encryption, secure key exchange, authentication, message security, decentralized communication, and eventually features such as Matrix interoperability, WebRTC-based communication, and disappearing messages.</p>
+<p>But the more I studied communication systems and privacy, the more I realized that building a secure communication platform is not only a cryptographic problem. It is also a problem of <strong>human behavior, privacy, trust, power, and product design</strong>.</p>
+<p>Two works particularly changed the way I think about Halonyx. The first was a discussion about the engineering of chat applications and how seemingly simple interface decisions can fundamentally change the way people communicate. Features such as read receipts, presence indicators, message persistence, threads, forwarding, and even the behavior of the Enter key are not merely implementation details. They influence human behavior. The second was an interview with Meredith Whittaker about privacy, surveillance, artificial intelligence, and the increasing power of data-driven systems. It made me question something more fundamental: <strong>What information should a communication platform need to know about its users in the first place?</strong></p>
+<p>I no longer want to think about Halonyx simply as an application that securely stores and transmits messages. I want to think about it as a communication system that is deliberately designed around <strong>privacy, human behavior, security, and user autonomy</strong>.</p>
+<p>I have organized this post around that idea. The numbered headings are the thirty-five ideas that shaped my thinking, and under each one I have put the part of the build that it explains: the protocol, the relay, the browser, DLP, testing, the interface, and the threat model.</p>
+<p>One thing up front: <strong>Halonyx is an experimental and educational project.</strong> It is a self-hostable, end-to-end encrypted messenger that implements the Signal Protocol&rsquo;s X3DH and Double Ratchet mechanisms from scratch. I do not claim it is equivalent to a professionally audited production messenger, and I have not had it independently audited.</p>
+<h3 id="where-the-project-started">Where the project started</h3>
+<p>The first question was simple: <strong>if the server is compromised, can it read my messages?</strong></p>
+<p>The obvious answer is &ldquo;use encryption&rdquo;, but that answer opens a longer list of questions.</p>
+<ul>
+<li>Where does encryption happen, and who generates the keys?</li>
+<li>Where are the private keys stored?</li>
+<li>How does a new session begin, and what happens after ten messages?</li>
+<li>What happens if one key is compromised?</li>
+<li>What happens if the recipient is offline?</li>
+<li>How does Alice know the key she received really belongs to Bob?</li>
+<li>What changes when someone joins a group, or when a file is sent?</li>
+<li>What does the server still learn even if it cannot read anything?</li>
+</ul>
+<p>I learned that building a secure messenger is not a matter of adding AES to a chat app. There is a whole system around the encryption, and that system became the real project.</p>
+<p>The architecture I wanted was conceptually small. The client encrypts, the server relays ciphertext, the recipient decrypts:</p>
+<pre><code class="language-text">Alice -&gt; plaintext -&gt; encrypt -&gt; ciphertext -&gt; Server -&gt; ciphertext -&gt; decrypt -&gt; Bob
+</code></pre>
+<p>In my design the server becomes a relay instead of the place where the conversation lives. Implementing that correctly is where the work was.</p>
+<h2 id="1-my-understanding-of-privacy-has-changed">1. My Understanding of Privacy Has Changed</h2>
+<p>Earlier, I would have described privacy mainly in technical terms: encryption, authentication, access control, secure storage, and protection against unauthorized access. These things are extremely important, but I now think they describe only one part of privacy.</p>
+<p>Privacy is not simply about hiding information. For me, it is the ability to communicate, think, experiment, make mistakes, change opinions, and interact with different people without every part of that process becoming permanently observable.</p>
+<p>This is where &ldquo;I have nothing to hide&rdquo; becomes problematic. Privacy should not depend on whether someone has something embarrassing or illegal to conceal. I can have nothing illegal to hide and still want a private conversation. I can discuss an unfinished idea with a friend without wanting it to become part of a permanent record. I can complain when I am frustrated and later change my opinion. I can discuss a personal issue with one person without wanting my manager, my organization, or some future automated system to interpret it.</p>
+<p><strong>Privacy is not about hiding wrongdoing. It is about preserving context and autonomy.</strong></p>
+<h2 id="2-i-started-thinking-about-communication-differently">2. I Started Thinking About Communication Differently</h2>
+<p>Studying the engineering of chat made me realize that communication software does not simply transport messages. It changes how people behave.</p>
+<p>A read receipt is a good example. Technically it is a very small feature, but socially it can change the meaning of a conversation. If I send a message and see that it has been read, I immediately have extra information, and if the other person does not respond I may start wondering why. In a workplace it gets more complicated, because a manager messaging an employee is not socially equivalent to two friends talking. The same feature produces different consequences in different contexts.</p>
+<p>So when I design Halonyx I should not ask only &ldquo;Can I implement this feature?&rdquo; I should also ask: <strong>&ldquo;What behavior will this feature encourage?&rdquo;</strong> That is a completely different way of thinking about product development.</p>
+<p>Before I could ask that properly, I wanted to understand what a chat system actually does, so I studied how large messaging systems are built.</p>
+<h3 id="what-a-chat-system-actually-does">What a chat system actually does</h3>
+<p>Before writing my own relay, I studied how large messaging systems are put together, first a WhatsApp-style design and then a Slack-style one. Halonyx is much smaller than either, but the comparison clarified what I was choosing to do differently.</p>
+<p>What I took from the first design is that a client connects through a <strong>gateway</strong>. The gateway speaks the external protocol to phones and browsers and a lighter internal protocol to the services behind it, because internal traffic does not need heavy headers and much of the security work is already handled at the edge.</p>
+<p>Each connection on a gateway costs memory. If the gateway also tracked which user was connected to which box, that information would be duplicated across machines and updated constantly. So I came to see the gateway as something that should stay deliberately dumb: bytes in, bytes out. A separate <strong>session service</strong> stores which user is connected to which gateway and acts as a router. When user A sends a message to user B, the gateway hands it to the session service, which finds B&rsquo;s gateway and sends the message back out through it.</p>
+<h4 id="why-websockets">Why WebSockets</h4>
+<p>Plain HTTP is request and response, so a server cannot push a message to a client on its own. Long polling works around that by having the client ask &ldquo;anything new?&rdquo; every so often, but it is not real time. For chat I need the server to be able to push, which is what <strong>WebSockets</strong> give me: a persistent connection over TCP where either side can send at any time. That is why Halonyx uses them.</p>
+<h2 id="3-i-do-not-want-halonyx-to-become-an-observer">3. I Do Not Want Halonyx to Become an Observer</h2>
+<p>This is probably one of the strongest conclusions I have reached. A communication platform has an enormous opportunity to observe its users. It can potentially know who talks to whom, when people communicate, how frequently, which groups they belong to, when they are online, how quickly they respond, what topics they discuss, and how those patterns change.</p>
+<p>Even if message contents are protected with strong encryption, metadata can still reveal relationships and patterns. So I cannot think about privacy only as &ldquo;Are the messages encrypted?&rdquo; I also need to ask <strong>&ldquo;What else does the system know?&rdquo;</strong></p>
+<p>I do not want Halonyx to become a system that continuously observes the people using it. I want it to facilitate communication without unnecessarily becoming an observer of that communication. The clearest place I can see the difference is where my relay departs from a conventional chat design.</p>
+<h3 id="where-my-relay-differs-from-a-conventional-chat-system">Where my relay differs from a conventional chat system</h3>
+<p>Halonyx is a single relay with a REST API, a WebSocket layer, and SQLite. I do not need a session service split from a gateway at this scale, and I am nowhere near the load either design is built for. The more interesting difference for me is what my relay is allowed to know, and a few of the techniques above change shape once everything is end-to-end encrypted.</p>
+<ul>
+<li><strong>Receipts, last seen, and group membership are metadata.</strong> The conventional designs keep a last seen table, a central group service, and read receipts. All useful, and all records of behavior. Later sections explain why I treat each as a decision instead of a default.</li>
+<li><strong>Media.</strong> Pre-signed uploads still leave the file in a server-side store. In Halonyx I seed files peer to peer, and the encrypted chat carries only the pointer.</li>
+<li><strong>Groups.</strong> Instead of a group service that knows membership, I use client-side pairwise fan-out, so my relay has no group state.</li>
+<li><strong>Offline delivery.</strong> The inbox design keeps rows with a delivered time and a retention policy. My mailbox is at-most-once and clears entries after delivery, which is simpler but gives up the replay and recovery guarantees the inbox gives.</li>
+<li><strong>Deletion.</strong> A server can only delete ciphertext it is still holding. A real &ldquo;delete for everyone&rdquo; would have to be an encrypted control message that recipients&rsquo; clients choose to honor, and a copy already on a device is only as deleted as that client makes it. I want to document that limit honestly.</li>
+<li><strong>Ordering.</strong> The server cannot assign a trustworthy sequence number to content it cannot read, and a ratcheting session already has to cope with messages arriving out of order within a chain. I need to test ordering, delivery counters, and ratchet state together.</li>
+<li><strong>Many devices.</strong> Per-device sessions fit the protocol, since each device has its own keys and ratchet state, but they multiply the fan-out and the state to manage. This is why I now say I should have designed the multi-device model at the start.</li>
+</ul>
+<h2 id="4-the-question-i-keep-coming-back-to">4. The Question I Keep Coming Back To</h2>
+<p>The most important question I have started asking myself is: <strong>What information does Halonyx actually need to know?</strong></p>
+<p>It sounds simple, but it changes architecture. Instead of starting with &ldquo;What data can I collect to make this feature more powerful?&rdquo;, I start with &ldquo;What is the minimum information required for this feature to work?&rdquo; Then I ask: can I reduce that further, does the server actually need this information, can this processing happen locally, and what could someone infer if several seemingly harmless pieces of information were combined?</p>
+<p>These questions are becoming part of how I think about every feature. The protocol is the first place they paid off, because the answer for key exchange turned out to be that the server only ever needs public information.</p>
+<h2 id="5-data-is-not-reality">5. Data Is Not Reality</h2>
+<p>Another idea that strongly influenced me is the distinction between data and reality. It is easy to assume data is an objective record of what happened, but data is created through measurement. Someone decides what to measure, how to measure it, what categories to create, what to record, what to ignore, and how to interpret the result. Data is a representation of reality, not reality itself.</p>
+<p>This matters enormously for workplace software. Imagine Halonyx records that I sent 500 messages in a month. That is a fact about my activity, but it is not the whole story. Maybe I was coordinating a large project, maybe my role requires constant communication, maybe most of those messages were very short. Maybe another employee sent fewer messages because their work needed long stretches of independent concentration.</p>
+<p>If a system turns message count into a productivity score, it is treating a measurable signal as if it were the actual human characteristic. That is something I want Halonyx to avoid.</p>
+<h2 id="6-i-do-not-want-communication-data-to-become-employee-profiles">6. I Do Not Want Communication Data to Become Employee Profiles</h2>
+<p>This leads to a larger concern. A workplace communication platform could theoretically turn communication data into employee profiles:</p>
+<pre><code class="language-text">Communication history -&gt; Behavioral patterns -&gt; AI analysis -&gt; Employee profile -&gt; Organizational decision
+</code></pre>
+<p>Technically this may be possible, but I do not think that means it should automatically be done. A communication system should not assume it has the authority to decide who is productive, who is committed, who is emotionally unstable, who is influential, who is disengaged, or what kind of person someone is. Those are complex human judgments, and communication data is only a partial representation of a person.</p>
+<p>I want Halonyx to be careful about the boundary between <strong>facilitating communication</strong> and <strong>profiling people</strong>.</p>
+<h2 id="7-ai-makes-this-problem-more-serious">7. AI Makes This Problem More Serious</h2>
+<p>AI changes the privacy equation. A human cannot manually read millions of messages, but AI can summarize, classify, search, correlate, and interpret huge quantities of information. That means old communication data becomes more valuable as AI capabilities improve, and something harmless today may be much more revealing in the future.</p>
+<p>This changed how I think about retention. I do not want the mindset &ldquo;Storage is cheap, so let&rsquo;s keep everything.&rdquo; I want to ask: <strong>&ldquo;Why does this information need to continue existing?&rdquo;</strong> If the answer is unclear, perhaps it should not be stored indefinitely.</p>
+<h2 id="8-derived-data-is-also-sensitive">8. Derived Data Is Also Sensitive</h2>
+<p>Privacy is not only about the information I explicitly provide. I think about three levels:</p>
+<ul>
+<li><strong>Information I provide:</strong> &ldquo;I am working on Project X.&rdquo;</li>
+<li><strong>Information the system derives:</strong> &ldquo;I communicate frequently about Project X.&rdquo;</li>
+<li><strong>Information the system infers:</strong> &ldquo;I may be under unusual work pressure.&rdquo;</li>
+</ul>
+<p>The third level interests me most. I may never have said it; the system generated the conclusion. So even if Halonyx protects the original messages, I still need to think about what the system can infer from them. That makes privacy a much broader problem than encryption.</p>
+<h2 id="9-combining-data-can-reveal-more-than-individual-data">9. Combining Data Can Reveal More Than Individual Data</h2>
+<p>One piece of information may look harmless, and so may another, but together they can reveal something sensitive:</p>
+<pre><code class="language-text">Message timestamps + Presence information + Group membership + Communication frequency
+    -&gt; Communication pattern
+</code></pre>
+<p>The individual fields may not be very sensitive, but the resulting pattern may be. In a workplace, communication patterns can reveal organizational relationships, project involvement, working schedules, unusual changes in behavior, or relationships between individuals. So I need to think about privacy not only at the level of individual database fields, but at the level of <strong>what can be reconstructed from those fields</strong>.</p>
+<p>Group membership is one of those fields. It is why I changed how Halonyx handles groups, replies, and threads.</p>
+<h3 id="groups-replies-and-threads">Groups, replies, and threads</h3>
+<h4 id="groups-by-pairwise-fan-out">Groups by pairwise fan-out</h4>
+<p>Conventional systems keep a group service on the server that knows who belongs to which group. I took a different route in Halonyx. A message to a group becomes several <strong>pairwise encrypted messages</strong>, each protected by its own Double Ratchet session:</p>
+<pre><code class="language-text">Alice -&gt; encrypt -&gt; Bob
+      -&gt; encrypt -&gt; Charlie
+      -&gt; encrypt -&gt; David
+</code></pre>
+<p>In my design the server just routes ciphertexts. Group metadata travels inside the encrypted envelope and not as plaintext server-side group state, so the relay does not need to understand groups at all.</p>
+<p>The cost I accept is that the sender does more work as a group grows. This is the same pressure that leads large messengers to cap group sizes.</p>
+<h4 id="replies-and-threads">Replies and threads</h4>
+<p>Real conversations are not linear. People reply to specific messages, quote earlier ones, and start threads. I added inline replies, recursive thread resolution, root-message identification, participant counts, thread panels, jump-to-original behavior, and encrypted reply metadata.</p>
+<p>The rule I followed was that a UI feature must not leak new information to the relay. Reply relationships live inside the encrypted envelope, because the relay has no reason to know which message answers which.</p>
+<h2 id="10-end-to-end-encryption-is-necessary-but-it-is-not-the-whole-story">10. End-to-End Encryption Is Necessary, But It Is Not the Whole Story</h2>
+<p>Halonyx is built around secure communication, so end-to-end encryption is fundamental. The Signal Protocol model, including X3DH and Double Ratchet, gives a strong foundation for message confidentiality. But I no longer think &ldquo;If messages are encrypted, the privacy problem is solved.&rdquo;</p>
+<p>Encryption protects the content. It does not eliminate metadata, timestamps, communication relationships, presence information, device information, group membership, retention information, and other operational data. So my privacy model looks more like this than like encryption alone:</p>
+<pre><code class="language-text">Strong cryptography + Metadata awareness + Data minimization
+    + Limited retention + User control + Careful AI processing
+</code></pre>
+<p>Here is the cryptographic part of the build, starting with the protocol explained the way I would explain it to a child.</p>
+<h3 id="the-protocol-explained-simply">The protocol, explained simply</h3>
+<p>This is the part I enjoy explaining most, so here it is the way I would tell it to a five-year-old.</p>
+<h4 id="the-story">The story</h4>
+<p>Let me tell you a story. Alice lives in Kochi. Her friend Bob lives in Delhi. They want to send each other secret chits (small folded notes). The only way to send a chit is through <strong>Postman Uncle</strong>, who is very friendly but very nosy. Alice and Bob want Postman Uncle to carry the chits without ever reading them.</p>
+<h4 id="step-1-open-padlocks">Step 1: Open padlocks</h4>
+<p>Bob has a big box of padlocks. Every padlock is <strong>open</strong>, and Bob keeps the <strong>keys at home</strong>. He gives all the open padlocks to Postman Uncle and says, &ldquo;Whoever wants to send me a secret, take a padlock.&rdquo;</p>
+<p>An open padlock is safe to hand to anyone. Anybody can snap it shut, but only Bob&rsquo;s key can open it again.</p>
+<p>Bob has three kinds of padlocks:</p>
+<ul>
+<li>One special padlock that says &ldquo;this is really Bob&rdquo;. It stays the same for a long time.</li>
+<li>One padlock with Bob&rsquo;s <strong>own stamp</strong> on it. Postman Uncle cannot swap it for a fake one, because he cannot copy Bob&rsquo;s stamp.</li>
+<li>Many small <strong>use-once</strong> padlocks. Once someone uses one, Bob throws it away so nobody can use it again.</li>
+</ul>
+<p>When Alice wants to talk to Bob for the first time, Postman Uncle gives her a little packet with one of each padlock. Bob does not even need to be awake. His padlocks are waiting, like a tiffin left outside the door.</p>
+<h4 id="step-2-mixing-holi-colors">Step 2: Mixing Holi colors</h4>
+<p>Now Alice and Bob need a <strong>secret color</strong> that only the two of them know, without ever sending that color through Postman Uncle.</p>
+<p>Here is how I picture it. Alice has her own secret color. Bob has his. Both of them also have the same bucket of plain yellow that everybody can see. Alice mixes her secret color into the yellow and sends the mixed bucket. Bob mixes his secret color into the yellow and sends his mixed bucket. Postman Uncle sees both buckets, but you cannot un-mix a Holi color.</p>
+<p>Then Alice adds her secret color to Bob&rsquo;s bucket, and Bob adds his secret color to Alice&rsquo;s bucket. They both end up with <strong>exactly the same final color</strong>. Postman Uncle never could.</p>
+<p>In Halonyx I do this <strong>four times</strong> with four different pairs of buckets. Each mix proves something different:</p>
+<ol>
+<li>Alice&rsquo;s own padlock with Bob&rsquo;s stamped padlock, to show who Alice is.</li>
+<li>Alice&rsquo;s brand new one-day color with Bob&rsquo;s identity padlock, to show who Bob is.</li>
+<li>Alice&rsquo;s one-day color with Bob&rsquo;s stamped padlock, to make it fresh for today.</li>
+<li>Alice&rsquo;s one-day color with Bob&rsquo;s use-once padlock, so nobody can replay the whole conversation later.</li>
+</ol>
+<p>Then Alice puts all four mixed colors into a <strong>masala grinder</strong>. The grinder turns them into one fine masala that is the shared secret. The grinder only goes one way. You cannot turn masala back into the colors.</p>
+<p>If Bob has run out of use-once padlocks, they do the first three mixes only. It is a little less special, but it still works.</p>
+<h4 id="step-3-a-new-lock-for-every-tiffin">Step 3: A new lock for every tiffin</h4>
+<p>If Alice and Bob used the same masala forever, one thief who stole it could open every chit, past and future. That would be silly.</p>
+<p>So they do something cleverer. Every chit goes in its <strong>own tiffin with its own lock</strong>.</p>
+<ul>
+<li>The first lock is made from the masala. After it is used, it is <strong>thrown away</strong>.</li>
+<li>The second lock is made by grinding the first one once more in a one-way grinder. Used once, thrown away.</li>
+<li>The third lock is made from the second, and so on.</li>
+</ul>
+<p>This is a chain, and it only goes forward. If a thief steals today&rsquo;s lock, he cannot walk backwards to make yesterday&rsquo;s locks, because the grinder only goes one way. So <strong>old chits stay safe</strong>.</p>
+<p>But there is a second trick. Every time Alice and Bob take turns replying, they quietly do a <strong>fresh round of Holi mixing</strong> and start a brand new chain. So even if a thief stole a lock once, after a few replies Alice and Bob are using colors the thief has never seen. The thief is <strong>locked out again</strong>.</p>
+<p>That is why the real name is a &ldquo;ratchet&rdquo;. It clicks forward and never goes back, and it has two wheels turning together: the one-way lock chain, and the fresh color mixing.</p>
+<h4 id="step-4-is-this-padlock-really-bobs">Step 4: Is this padlock really Bob&rsquo;s?</h4>
+<p>There is still one problem. What if Postman Uncle is not honest? What if he gave Alice a padlock from a <strong>thief</strong> and said &ldquo;this is Bob&rsquo;s&ldquo;? Alice would lock her chits perfectly, and only the thief would read them. Everything would be locked, but to the wrong person.</p>
+<p>So Alice and Bob do one more thing. They meet at school (or on a different channel) and compare a <strong>long secret number</strong>, made from both of their identity padlocks. In Halonyx I derive a 60-digit one. If the numbers match, nobody swapped the padlocks. If the number ever changes later, the app says, &ldquo;Hey, something is different about Bob&rsquo;s padlock.&rdquo;</p>
+<p>This is the lesson of the story that I care about most:</p>
+<blockquote>
+<p>Locking a chit and knowing <strong>who you locked it for</strong> are two different problems.</p>
+</blockquote>
+<h4 id="what-the-story-is-really-called">What the story is really called</h4>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>In the story</th>
+<th>The real name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open padlock</td>
+<td>Public key</td>
+</tr>
+<tr>
+<td>Key kept at home</td>
+<td>Private key</td>
+</tr>
+<tr>
+<td>Postman Uncle</td>
+<td>The server (relay)</td>
+</tr>
+<tr>
+<td>Padlock that says &ldquo;this is Bob&rdquo;</td>
+<td>Identity key</td>
+</tr>
+<tr>
+<td>Padlock with Bob&rsquo;s stamp</td>
+<td>Signed pre-key</td>
+</tr>
+<tr>
+<td>Use-once padlocks</td>
+<td>One-time pre-keys</td>
+</tr>
+<tr>
+<td>Packet of padlocks from the uncle</td>
+<td>Pre-key bundle</td>
+</tr>
+<tr>
+<td>Holi color mixing</td>
+<td>Diffie-Hellman exchange</td>
+</tr>
+<tr>
+<td>Four mixes at the start</td>
+<td>X3DH</td>
+</tr>
+<tr>
+<td>Masala grinder</td>
+<td>HKDF (a key derivation function)</td>
+</tr>
+<tr>
+<td>New lock for every tiffin</td>
+<td>Symmetric ratchet, one message key per message</td>
+</tr>
+<tr>
+<td>Fresh color mixing during replies</td>
+<td>Diffie-Hellman ratchet</td>
+</tr>
+<tr>
+<td>Old chits stay safe</td>
+<td>Forward secrecy</td>
+</tr>
+<tr>
+<td>Thief gets locked out again</td>
+<td>Post-compromise security</td>
+</tr>
+<tr>
+<td>Long number compared at school</td>
+<td>Safety number</td>
+</tr>
+</tbody>
+</table></div>
+<p>Written out the way I implemented them, the four starting mixes are:</p>
+<pre><code class="language-text">DH1 = DH(Alice identity,   Bob signed pre-key)
+DH2 = DH(Alice ephemeral,  Bob identity)
+DH3 = DH(Alice ephemeral,  Bob signed pre-key)
+DH4 = DH(Alice ephemeral,  Bob one-time pre-key)
+
+shared secret = HKDF(DH1 || DH2 || DH3 || DH4)
+</code></pre>
+<p>And the chain of message keys I derive:</p>
+<pre><code class="language-text">Chain Key -&gt; Message Key #1 -&gt; Next Chain Key -&gt; Message Key #2 -&gt; Next Chain Key -&gt; ...
+</code></pre>
+<p>In my design the server takes part in all of this by carrying public information, and it never possesses the shared secret. That was the point where the architecture clicked for me: <strong>a server can help two people establish a secret without ever being able to learn it.</strong></p>
+<h3 id="building-the-cryptographic-layer">Building the cryptographic layer</h3>
+<p>The protocol is only as good as the primitives under it. These are the ones I use in the current implementation:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AES-256-GCM</td>
+<td>Symmetric authenticated encryption</td>
+</tr>
+<tr>
+<td>HKDF-SHA256</td>
+<td>Key derivation</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>Hashing</td>
+</tr>
+<tr>
+<td>X25519</td>
+<td>Diffie-Hellman key exchange</td>
+</tr>
+<tr>
+<td>Ed25519</td>
+<td>Pre-key signing</td>
+</tr>
+<tr>
+<td>P-256</td>
+<td>Identity and safety number functionality</td>
+</tr>
+<tr>
+<td>HMAC-SHA256</td>
+<td>Authentication-related operations</td>
+</tr>
+</tbody>
+</table></div>
+<p>None of these are novel, and the hard part for me was not calling the APIs. It was using them in the right order and keeping the session state consistent across every message, reload, and reconnect.</p>
+<p>Cryptography has an uncomfortable property that I kept running into. A system can look entirely correct while containing one small mistake that changes its security completely. That is why testing became such a large part of this project, and I come back to it below.</p>
+<p>I also made a deliberate choice to implement the protocol myself under the <code>protocol/</code> directory instead of wrapping <code>libsignal</code>. For a production product, using a mature, independently reviewed implementation is the sensible choice. My goal was to understand the sequence of operations well enough to explain it, and that made the project harder and far more educational.</p>
+<h2 id="11-i-see-metadata-differently-now">11. I See Metadata Differently Now</h2>
+<p>Metadata used to feel like a secondary technical issue. Now I see it as part of the communication itself. Knowing that two people communicated repeatedly can reveal something. So can knowing when they communicated, that a group suddenly became very active, or that a person is consistently online.</p>
+<p>This is especially important in a workplace, where communication metadata can reveal organizational structures and behavioral patterns even when the messages stay encrypted. I may not always be able to eliminate metadata completely, but I can ask the better starting question: <strong>What metadata is genuinely necessary for the system to operate?</strong></p>
+<h2 id="12-data-minimization-is-also-security">12. Data Minimization Is Also Security</h2>
+<p>I increasingly see data minimization as a security feature. Every piece of stored information creates another responsibility. It may need to be encrypted, synchronized, backed up, protected, audited, retained, and eventually deleted. If I never collect unnecessary information, an attacker cannot steal it from Halonyx.</p>
+<p>That gives me a simple principle: <strong>The safest information is often the information the system never possessed.</strong> It is the reasoning behind how I built the relay and the offline mailbox.</p>
+<h3 id="turning-the-protocol-into-a-messenger">Turning the protocol into a messenger</h3>
+<p>With the protocol working, I still had to build everything around it: a REST API, WebSocket communication, authentication, contact management, key bundle distribution, offline messaging, database storage, connection management, and message delivery states.</p>
+<p>I built the backend as a relay and not a message-processing system:</p>
+<pre><code class="language-text">Authentication -&gt; Key distribution -&gt; WebSocket registration -&gt; Message routing -&gt; Offline mailbox
+</code></pre>
+<p>Message content is already encrypted before it enters the messaging layer.</p>
+<h4 id="offline-messaging">Offline messaging</h4>
+<p>Users are not always online, so I built an <strong>offline mailbox</strong>. If Bob is disconnected, the server holds the encrypted payload temporarily. When he reconnects:</p>
+<pre><code class="language-text">Bob reconnects -&gt; WebSocket registered -&gt; Server fetches queued ciphertext -&gt; Delivered -&gt; Mailbox entries removed
+</code></pre>
+<p>I deliberately chose <strong>at-most-once delivery</strong>, so the server is not meant to keep every encrypted message forever. That is a reasonable tradeoff for this project, but it exposed a gap I had to accept: security and reliability do not arrive together. A production messenger needs delivery acknowledgements, retries, durable queues, and recovery behavior, which are the same concerns the large-scale designs I studied under heading 2 spend most of their effort on.</p>
+<h2 id="13-i-want-local-processing-where-it-makes-sense">13. I Want Local Processing Where It Makes Sense</h2>
+<p>If a task can be performed locally without sending sensitive information to a remote service, I want to consider that option seriously. Classification, summarization, privacy filtering, image processing, security analysis, or assistance may all be possible on the device, which leaves less reason to expose the underlying information to a server.</p>
+<p>I do not think every AI operation has to be local, because that would not always be practical. But I want to ask: <strong>Does the server actually need to see the data required for this computation?</strong> If the answer is no, local processing becomes an attractive architectural choice. Two parts of Halonyx already work this way: key storage in the browser and DLP before encryption.</p>
+<h3 id="the-browser-is-part-of-the-security-model">The browser is part of the security model</h3>
+<p>Encryption does not make an application secure by itself. The browser becomes part of the trusted computing environment, so I had to think about where private keys live.</p>
+<p>I did not want private key material serialized into ordinary JSON and stored casually. In Halonyx I use <strong>IndexedDB</strong> for cryptographic persistence and store private keys as <strong>non-exportable <code>CryptoKey</code> objects</strong> where possible. I persist Double Ratchet state too, so sessions survive reloads and reconnects.</p>
+<pre><code class="language-text">Browser
+ |-- UI
+ |-- Signal Protocol
+ |-- Web Crypto
+ '-- IndexedDB
+      |-- Identity keys
+      |-- Signed pre-key
+      |-- One-time pre-keys
+      '-- Ratchet state
+</code></pre>
+<p>This taught me another limit of end-to-end encryption: it protects communication, but it does not protect a compromised endpoint. If the machine or browser is compromised, an attacker can act before encryption or after decryption.</p>
+<h3 id="client-side-dlp-before-encryption">Client-side DLP before encryption</h3>
+<p>This is where the project took an unexpected turn. Suppose someone pastes this into a chat:</p>
+<pre><code class="language-text">AWS_ACCESS_KEY_ID=...
+AWS_SECRET_ACCESS_KEY=...
+</code></pre>
+<p>If the app encrypts it immediately, the server cannot inspect it. That is good for privacy, but it means a company cannot run traditional server-side data loss prevention. So I explored the opposite order: <strong>inspect on the client, before encryption.</strong> That became the Aegisus Security Engine integration.</p>
+<pre><code class="language-text">User writes message -&gt; DLP inspection -&gt; Block / Warn / Redact -&gt; Signal Protocol encryption -&gt; Server
+</code></pre>
+<p>The ordering is the whole idea. The inspection happens while plaintext still exists on the client, and the server still never receives it. The classifiers I built cover AWS access keys, GitHub tokens, Slack tokens, OpenAI API keys, PEM private keys, payment card numbers, JWTs, configurable PII patterns, and custom enterprise rules, with three enforcement modes: <code>BLOCK</code>, <code>WARN</code>, and <code>REDACT</code>.</p>
+<p>It also introduced a new trust problem for me to think about. The client is now enforcing security policy as well as performing encryption, so the integrity of the client matters even more. If the client can be modified maliciously, both the encryption layer and the DLP layer are in question. The endpoint matters.</p>
+<h2 id="14-i-do-not-want-ai-to-become-an-excuse-for-data-collection">14. I Do Not Want AI to Become an Excuse for Data Collection</h2>
+<p>One of the easiest mistakes I could make is to think &ldquo;We might need this data for AI later, so let&rsquo;s collect it now.&rdquo; I do not want to follow that approach. AI capability should not automatically justify collecting more information.</p>
+<p>I want the opposite principle: <strong>The intelligence of the system should adapt to the privacy boundaries of the data.</strong> If an AI feature needs a user&rsquo;s entire history when only one conversation is relevant, I should question the architecture. If a security feature only needs a URL, it should not receive the entire conversation. If a summarization feature concerns one conversation, it should not need access to every conversation.</p>
+<h2 id="15-i-want-halonyx-to-work-with-minimum-necessary-context">15. I Want Halonyx to Work With Minimum Necessary Context</h2>
+<p>This is the architecture I can imagine:</p>
+<pre><code class="language-text">User request -&gt; Determine required context -&gt; Select minimum necessary information
+    -&gt; Perform processing -&gt; Return result -&gt; Discard unnecessary temporary context
+</code></pre>
+<p>It is very different from &ldquo;collect everything, give everything to the AI, and let the AI decide what matters.&rdquo; The first approach puts privacy boundaries before intelligence, and that is the direction I want Halonyx to follow.</p>
+<h2 id="16-workplace-communication-makes-privacy-more-important">16. Workplace Communication Makes Privacy More Important</h2>
+<p>Halonyx is not meant to be just another social messaging application. I want it to work as a workplace communication platform, which introduces power relationships: employees, managers, administrators, team leads, executives, departments, and organizations. Information shared between two colleagues becomes much more sensitive when someone with authority over one of them can access it.</p>
+<p>So I want to separate <strong>security administration</strong> from <strong>behavioral surveillance</strong>.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Legitimate security function</th>
+<th>Does not justify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication and authorization</td>
+<td>Productivity scoring</td>
+</tr>
+<tr>
+<td>Account protection</td>
+<td>Emotional monitoring</td>
+</tr>
+<tr>
+<td>Abuse prevention and malware detection</td>
+<td>Personality profiling</td>
+</tr>
+<tr>
+<td>Incident response and system integrity</td>
+<td>Hidden relationship mapping and generalized analysis of private conversations</td>
+</tr>
+</tbody>
+</table></div>
+<p>I want Halonyx to be designed carefully around that distinction.</p>
+<h2 id="17-communication-features-are-behavioral-features">17. Communication Features Are Behavioral Features</h2>
+<p>I used to think about read receipts, presence, typing indicators, threads, message persistence, forwarding, reactions, editing, notifications, and disappearing messages as functionality. Now I see them as <strong>behavioral design decisions</strong>. Read receipts can create social pressure, presence indicators create expectations of availability, typing indicators create anticipation, permanent history can make people more cautious about what they say, and disappearing messages create a different sense of communication.</p>
+<p>So I want to consider not only &ldquo;How should this feature work technically?&rdquo; but also <strong>&ldquo;How will this feature change the way people communicate?&rdquo;</strong> To see how many such decisions hide inside a product, I studied a team chat design with threads, deletion, and several devices per user.</p>
+<h3 id="case-study-team-chat-with-threads-deletion-and-many-devices">Case study: team chat with threads, deletion, and many devices</h3>
+<p>The first design gave me a good picture of a messenger. A team chat product adds problems it skips, so I studied a second design written the way a staff-level interview answer would be.</p>
+<p><strong>Requirements with numbers.</strong> I noted four functional requirements: send and receive messages in one-to-one and group chats, share rich media, get real-time notifications whether online or offline, and delete your own messages. A one-to-one chat is the smallest group chat, so only the group case needs designing. The non-functional side is where it got useful for me, because every requirement has a measurable target:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scale</td>
+<td>1 billion monthly active users, over 100k concurrent chats</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>95th percentile end-to-end delivery around 200 ms</td>
+</tr>
+<tr>
+<td>Consistency</td>
+<td>Availability first, but strong ordering inside each chat</td>
+</tr>
+<tr>
+<td>Durability</td>
+<td>No acknowledged message is ever lost</td>
+</tr>
+<tr>
+<td>Multi-device</td>
+<td>95th percentile sync latency under 300 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>I also took away that durability and deletion are separate concerns. A message is safe to remove only when the sender deletes it or a retention policy expires it, never just because it was delivered.</p>
+<p><strong>Entities.</strong> The design has five: user, chat, message, media, and device session. I like that a thread is not a separate entity. It is a message with a parent message ID.</p>
+<p><strong>Transport.</strong> Polling is simple but wasteful, long polling is better but reconnects each time, and WebSockets give a persistent two-way connection. Three event types cover the core: send message from client to server, new message from server to clients, and message deleted from server to clients.</p>
+<p><strong>The send path.</strong> The client sends over a WebSocket to an API gateway, which authenticates and rate-limits. A chat server checks that the sender belongs to the chat, assigns a message ID and timestamp, and stores the message. Then it looks up which members have active device sessions and a WebSocket server broadcasts to them.</p>
+<p><strong>Media.</strong> The media server validates the file and returns a pre-signed upload URL for blob storage. The client uploads straight to storage and then sends a normal message that carries the media ID, so the chat server never handles the file bytes.</p>
+<p><strong>Online, offline, and push.</strong> A user is online when at least one device session has an active WebSocket, tracked by a session table with a status and a last-heartbeat timestamp. Offline recipients get an <strong>inbox</strong> row per message, holding the user, the message, the created time, and a delivered time. The point I found most useful is that a push notification is not delivery. The sequence is: message stored, push sent, banner shown, app opened and WebSocket reconnected, inbox replayed, message actually seen. Only the replay counts as delivery.</p>
+<p><strong>Deletion.</strong> Deletion is a soft delete, a flag on the message row, allowed only for the original sender. Online members get a message-deleted event. For an offline member who never received the message, the inbox row is skipped or removed, so they never learn it existed. Only recipients who already got the message receive a delete event.</p>
+<p><strong>Storage trade-off.</strong> A relational database such as MySQL or Postgres gives transactions, joins, and predictable indexing, and sharding middleware like Vitess lets it scale out. A key-value store such as DynamoDB gives low latency and automatic scaling, with a composite key of chat ID plus created time for ordered reads per chat, at the cost of weaker consistency and no flexible joins. The habit I want to copy is stating the trade-off and not just naming a database.</p>
+<p><strong>Ordering.</strong> I found three options for ordering messages in a busy group chat:</p>
+<ol>
+<li>Client timestamps, which are fragile because device clocks drift and a buggy or malicious client can reorder a conversation.</li>
+<li>A server-side sequence number per chat, which is correct but can bottleneck on the atomic counter.</li>
+<li>Kafka with one partition per chat, chosen by hashing the chat ID. Kafka orders messages within a partition, and a consumer assigns the sequence number and writes to the database in order.</li>
+</ol>
+<p>The catch with the third option is a hot partition when one chat, such as an all-hands channel, is far busier than the rest.</p>
+<p><strong>Scaling WebSockets.</strong> At very large scale, querying a session table or cache for every message is too expensive, so the design moves to publish/subscribe. Fan-out workers publish each message to a channel named after the chat, and each WebSocket server subscribes only to the chats its connected users belong to, then delivers using a local session map. When users churn between servers, an old server can keep a stale subscription and waste work. A <strong>lease</strong> solves it: a server sets a short-lived key for the user with a TTL of about ten seconds, refreshes it with a heartbeat, and only the lease holder subscribes for that user. Under write pressure, the message and inbox tables are partitioned and hot metadata such as chat members and sessions is cached.</p>
+<p><strong>Many devices.</strong> Sessions are tracked per device, not per user, and the inbox is keyed by user and device. After a reconnect the same message might arrive both live and by inbox replay, so clients keep a small cache of recent message IDs and drop anything they have already rendered, using sequence numbers to confirm order.</p>
+<h3 id="keeping-a-chat-system-healthy">Keeping a chat system healthy</h3>
+<p>A few other techniques kept coming up as I read:</p>
+<ul>
+<li>Pushing parsing work off the gateways into a separate service so connection boxes stay light.</li>
+<li>Using consistent hashing on the group ID so group lookups route to the right box without duplicating data everywhere.</li>
+<li>Using message queues with configurable retries, and making delivery idempotent so a retry does not create duplicates.</li>
+<li>Deprioritizing low-value traffic such as receipts and last seen during huge load spikes like New Year or a festival, because accepting and acknowledging the message matters more.</li>
+</ul>
+<h2 id="18-read-receipts-should-be-a-deliberate-choice">18. Read Receipts Should Be a Deliberate Choice</h2>
+<p>A read receipt is technically simple, but it is not socially neutral. If someone sees that I read their message at 10:42 PM, they now have information about my behavior, and if I do not respond immediately they may interpret that. In a workplace, this can create pressure.</p>
+<p>So I want Halonyx to think carefully about whether read receipts should exist, whether they should be optional, whether they should be symmetric, whether users can disable them, and whether administrators should ever be able to override them. The point is not that read receipts are bad. The point is that <strong>they are a product decision with privacy consequences</strong>.</p>
+<h3 id="sent-delivered-read">Sent, delivered, read</h3>
+<p>I think of the three tick marks as three different events.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Receipt</th>
+<th>What has happened</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sent</td>
+<td>The platform accepted the message and stored it durably, so it will keep retrying until the recipient gets it</td>
+</tr>
+<tr>
+<td>Delivered</td>
+<td>The recipient&rsquo;s device received it and acknowledged it back through its gateway and the session service</td>
+</tr>
+<tr>
+<td>Read</td>
+<td>The recipient opened the chat and the same acknowledgement flow ran again</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="19-presence-is-also-a-privacy-decision">19. Presence Is Also a Privacy Decision</h2>
+<p>&ldquo;Online&rdquo; seems harmless, but persistent presence information can reveal working schedules, availability patterns, unusual activity, responsiveness, and working habits. I do not want to assume that showing presence is always beneficial. The standard I want to hold it to is: <strong>Does this information genuinely improve communication enough to justify the additional exposure?</strong></p>
+<h3 id="last-seen-and-online-status">Last seen and online status</h3>
+<p>As I understand it, last seen is a table of user IDs and timestamps. Any real user activity updates the row. Requests the app makes on its own, such as polling or acknowledgements, have to be flagged so they do not count as activity. Recent activity within a small threshold is shown as &ldquo;online&rdquo; instead of an exact time.</p>
+<h2 id="20-i-want-to-rethink-message-persistence">20. I Want to Rethink Message Persistence</h2>
+<p>Most messaging systems assume everything should remain until someone deletes it. I do not think that should automatically be the assumption for Halonyx. Some communication needs permanence, such as project decisions, technical documentation, important organizational information, and formal records. Other conversations may not.</p>
+<p>Different contexts can reasonably call for persistent messages, temporary messages, disappearing messages, private discussions, project history, or ephemeral conversations. So I treat persistence as a <strong>communication property</strong>, not a database default. I also treat durability and deletion as separate concerns: a message should be removed because someone chose to remove it or a retention rule expired, never as a side effect of being delivered.</p>
+<h2 id="21-disappearing-messages-represent-a-different-philosophy">21. Disappearing Messages Represent a Different Philosophy</h2>
+<p>I am particularly interested in disappearing messages because they challenge the assumption that everything must become permanent digital history. Instead of &ldquo;Everything remains unless manually removed&rdquo;, the model becomes &ldquo;Information disappears unless there is a reason to preserve it.&rdquo;</p>
+<p>That does not solve privacy completely. Forwarded messages can still exist, screenshots can still exist, metadata may still exist, and devices may still retain information. But the feature changes the default expectation of permanence, and that is valuable.</p>
+<h2 id="22-search-is-also-a-privacy-decision">22. Search Is Also a Privacy Decision</h2>
+<p>Search is one of the most useful features in workplace communication, and also a way of turning historical communication into easily accessible information. A human may forget a conversation; a search engine does not. An AI system could go further and answer &ldquo;Find every discussion about Project X&rdquo;, &ldquo;When did this person first mention this issue?&rdquo;, or &ldquo;Summarize all conversations related to this employee.&rdquo;</p>
+<p>That is powerful, and power creates responsibility. I want to treat search as a significant access-control and privacy problem, so I ask: who can search, what can they search, how far back, can private conversations be searched, can administrators search everything, can AI search everything, are searches themselves logged, and can search results expose information the user could not otherwise access? Search should be designed as carefully as encryption.</p>
+<h2 id="23-i-do-not-want-halonyx-to-build-behavioral-profiles">23. I Do Not Want Halonyx to Build Behavioral Profiles</h2>
+<p>It would be technically possible to calculate message frequency, response time, communication networks, active hours, and conversation topics. But I do not want Halonyx to automatically turn those measurements into judgments about people. <strong>A person is not a collection of communication statistics.</strong></p>
+<p>A profile generated by a system is not the person. It is an interpretation, and it can be incomplete or wrong. I want Halonyx to facilitate communication rather than become an authority on the people using it.</p>
+<h2 id="24-privacy-is-also-about-power">24. Privacy Is Also About Power</h2>
+<p>One of the most important ideas I took from the privacy discussion is the relationship between information and power. Privacy matters most when the entity collecting information has more power than the individual providing it, which is especially true in workplaces. An employee may not feel free to refuse certain forms of monitoring if the organization controls the communication infrastructure.</p>
+<p>So I do not want to evaluate a privacy feature only by asking &ldquo;Is the information technically accessible?&rdquo; I also want to ask <strong>&ldquo;Who gains power from having access to this information?&rdquo;</strong> That question should be part of Halonyx&rsquo;s product design.</p>
+<h2 id="25-i-want-architecture-to-reduce-the-amount-of-trust-required">25. I Want Architecture to Reduce the Amount of Trust Required</h2>
+<p>Good privacy architecture should reduce the amount of trust users have to place in the platform. If Halonyx can decrypt messages, users have to trust the server not to read them. If it stores extensive metadata, they have to trust the organization to protect it. If administrators can silently access conversations, they have to trust administrators. If an AI service receives entire conversations, they have to trust that service as well.</p>
+<p>I would rather reduce those dependencies architecturally. Instead of saying &ldquo;Trust us&rdquo;, I want Halonyx to be able to say: <strong>&ldquo;The system is designed so that there is less information for us to access in the first place.&rdquo;</strong> That is a much stronger form of trust.</p>
+<h2 id="26-decentralization-alone-does-not-solve-privacy">26. Decentralization Alone Does Not Solve Privacy</h2>
+<p>I have become more careful about how I describe Halonyx as a decentralized application. Decentralization can reduce dependence on a single central authority, but it does not guarantee privacy. A decentralized system can still expose communication metadata, network information, identity information, relationships, and behavioral patterns.</p>
+<p>For me a stronger model is:</p>
+<pre><code class="language-text">Decentralization + Strong cryptography + Metadata minimization
+    + Data minimization + Limited retention + User control
+</code></pre>
+<p>These properties solve different problems. Peer-to-peer file transfer in Halonyx is a good example of both the benefit and the limit.</p>
+<h3 id="files-without-a-file-server">Files without a file server</h3>
+<p>Messages were not enough. I wanted file transfer without turning the Halonyx server into a large storage system, so I used <strong>WebTorrent</strong> over <strong>WebRTC</strong>.</p>
+<pre><code class="language-text">Alice (seeds file in browser) -- WebRTC / WebTorrent --&gt; Bob
+</code></pre>
+<p>In my design Alice seeds the file from her browser and the encrypted chat carries the magnet URI. Bob downloads directly from Alice, so the server is never in the file data path.</p>
+<p>This does not remove every privacy concern, and I try to be honest about that. WebRTC brings its own networking and IP-address considerations, and removing the server from the data path is not the same as removing every risk.</p>
+<h2 id="27-i-want-halonyx-to-have-privacy-by-architecture">27. I Want Halonyx to Have Privacy by Architecture</h2>
+<p>At this point privacy has become more than a feature for me. I want it to influence the architecture, not be added after the system is designed. A simplified view:</p>
+<pre><code class="language-text">Communication        Security          Identity
+(encryption)         (threat model)    (authentication)
+      \                  |                 /
+       +-----------------+-----------------+
+                         |
+               Privacy architecture
+      +------------------+------------------+
+      |                  |                  |
+ Data minimization  Metadata minimization  Retention limits
+      +------------------+------------------+
+                         |
+                   User control
+                         |
+                Secure communication
+</code></pre>
+<p>Below is what that looks like in the current build, and how I test it.</p>
+<h3 id="architecture-today">Architecture today</h3>
+<pre><code class="language-text">                          HALONYX
+
+                     Browser Client
+                           |
+              +------------+------------+
+              |            |            |
+          Messaging       DLP      Cryptography
+              |            |            |
+              |        Aegisus        X3DH
+              |                    Double Ratchet
+              +------------+------------+
+                           |
+                       IndexedDB
+                           |
+                   HTTPS / WebSocket
+                           |
+                    Halonyx Backend
+                           |
+              +------------+------------+
+              |            |            |
+          REST API     WebSocket      SQLite
+                           |
+                         Relay
+                           |
+                     Another Client
+
+Files:  Client &lt;---- WebRTC / WebTorrent ----&gt; Client
+</code></pre>
+<p>I deliberately keep the server away from message plaintext and peer-to-peer file contents, which means the client carries more of the security responsibility.</p>
+<h3 id="testing-and-the-simulator">Testing and the simulator</h3>
+<p>Ordinary application tests check that login works and a button responds. Cryptographic software needs a different mindset, so I test X25519 operations, X3DH, Double Ratchet, key derivation, safety numbers, authentication, WebSocket behavior, relay behavior, and database behavior.</p>
+<p>I wrote dedicated tests for the cryptographic core and the application components, and CI runs the suite on Node.js 20, 22, and 24. One behavior I care about is that the cryptographic tests are not allowed to silently skip and still produce a green build. A test that did not run is not a passing test.</p>
+<p>I did not want the protocol to exist only as source code, so I built an interactive simulator that walks through key generation, X3DH, the shared secret, root key, chain keys, message keys, the DH ratchet, and the new session state. Building it forced me to understand the protocol well enough to show it. If I cannot explain what my implementation is doing, I probably do not understand it.</p>
+<h2 id="28-i-want-to-ask-what-halonyx-should-never-know">28. I Want to Ask What Halonyx Should Never Know</h2>
+<p>This is perhaps the most important question I now have for the project: <strong>What should Halonyx never need to know?</strong></p>
+<p>For each feature I ask what information it requires, whether I can remove some of it, whether the server actually needs it, whether it can be processed locally, what can be inferred from the information I retain, and what happens if all of it is combined. This creates a kind of negative requirements philosophy. I do not want to document only what Halonyx can do. I also want to document what it intentionally refuses to do, and what it does not solve.</p>
+<h3 id="the-threat-model">The threat model</h3>
+<p>I try not to say &ldquo;this application is secure&rdquo;. That is an enormous claim. Instead I ask: secure against whom, under what assumptions, if the server is malicious, if the browser is compromised, what metadata remains, what happens when one-time pre-keys run out, what WebRTC exposes, and what happens if a dependency is compromised. I documented a threat model and security analysis in the repository for that reason.</p>
+<p><strong>What Halonyx is designed to provide:</strong></p>
+<ul>
+<li>Protection of message contents from the messaging server</li>
+<li>Forward secrecy and post-compromise security</li>
+<li>Authenticated encryption</li>
+<li>Pseudonymous identities and identity verification through safety numbers</li>
+<li>Encrypted offline messages</li>
+<li>Server-independent peer-to-peer file transfer</li>
+</ul>
+<p><strong>What it does not solve:</strong></p>
+<ul>
+<li>A compromised user machine</li>
+<li>Malicious browser extensions</li>
+<li>Malicious JavaScript delivered to the client</li>
+<li>Traffic analysis and network metadata</li>
+<li>WebRTC privacy considerations</li>
+<li>Vulnerable dependencies</li>
+<li>Undiscovered bugs in my own cryptographic implementation</li>
+<li>Independent professional audit, which I have not had</li>
+</ul>
+<h2 id="29-privacy-should-be-part-of-the-user-experience">29. Privacy Should Be Part of the User Experience</h2>
+<p>I do not want privacy to exist only inside cryptographic libraries and backend code. Users should be able to understand what is encrypted, what is stored, what disappears, what metadata exists, who can access information, what administrators can do, and what happens when devices change.</p>
+<p>I do not want to overwhelm people with technical detail. Privacy information should be contextual, concise, understandable, and available when it matters. This is where my interest in HCI becomes directly relevant: security that users cannot understand can still produce poor security outcomes.</p>
+<h2 id="30-i-want-privacy-to-be-visible-without-becoming-intrusive">30. I Want Privacy to Be Visible Without Becoming Intrusive</h2>
+<p>I do not want Halonyx to constantly warn users about privacy, because too many warnings eventually become meaningless. Instead, privacy should appear at the right moments. If a user enables disappearing messages, the interface should clearly explain what that means. If a conversation has a different security property, that should be understandable. If a message is temporary, the user should know. If an action exposes information, the user should understand the consequence. This is not just documentation. It is part of the product.</p>
+<p>Studying how product animations are engineered gave me practical principles for doing this without noise.</p>
+<h3 id="interface-motion-and-trust">Interface motion and trust</h3>
+<p>Studying how product animations are engineered changed how I think about the Halonyx interface. A few principles carried over directly.</p>
+<p><strong>Spatial consistency.</strong> Animation builds a map of where intangible things live. An app growing out of its icon tells you that apps live there. In Halonyx I want thread panels, the jump-to-original behavior, and any panel that appears and disappears to move in a way that shows where it came from and where it went.</p>
+<p><strong>Copy nature, then know when to stop.</strong> Motion that mimics physical objects helps people understand an interface, but it costs time. An animation teaches something the first time and just makes you wait by the hundredth. I want frequent, user-initiated actions, such as opening a menu with a keyboard shortcut or switching between chats, to be instant, and I want to keep motion for places where it explains something new, like a panel that is not obviously there.</p>
+<p><strong>Speed lives in the easing.</strong> Two animations with the same duration can feel fast or slow depending on easing. In Halonyx I plan to use ease-out for things entering or leaving so most of the movement happens early, and ease-in-out for things already on screen that move. I also want animations to be interruptible, because then the user is never stuck waiting for one to finish.</p>
+<p><strong>Personality.</strong> Bounce and long durations feel playful. Short, restrained, predictable motion feels like a work tool. Halonyx is intended for workplace use, so I want it to lean toward the second.</p>
+<p><strong>Feedback that carries meaning.</strong> One example I keep in mind is a transfer app whose transfers became instant, but users did not believe them. Adding a short animation showing that the money had arrived increased trust. Meaning needs to be visible. In Halonyx that applies to moments like enabling disappearing messages, a changed safety number, or a temporary conversation, so I want the interface to make those states understandable at the moment they matter, without constant warnings that people learn to ignore.</p>
+<p>Security that users cannot understand can still produce poor security outcomes, which is where my interest in HCI meets the cryptography.</p>
+<h2 id="31-the-future-of-halonyx-should-not-be-collect-everything">31. The Future of Halonyx Should Not Be “Collect Everything”</h2>
+<p>The more I think about AI and modern software, the more I dislike collecting everything simply because it might become useful later. The common approach is:</p>
+<pre><code class="language-text">Collect everything -&gt; Store everything -&gt; Analyze everything -&gt; Build features from it
+</code></pre>
+<p>I want Halonyx to follow a different philosophy:</p>
+<pre><code class="language-text">Define the user need -&gt; Determine minimum necessary data -&gt; Minimize exposure
+    -&gt; Process securely -&gt; Retain only what is justified
+</code></pre>
+<p>This is slower in some ways and may be harder, but I think it produces a system that better respects the people using it.</p>
+<h2 id="32-my-privacy-principles-for-halonyx">32. My Privacy Principles for Halonyx</h2>
+<p>After thinking through these ideas, these are the principles I define for Halonyx.</p>
+<ol>
+<li><strong>Confidentiality.</strong> Communication should be protected from unauthorized access.</li>
+<li><strong>Data minimization.</strong> I should collect only the information genuinely required.</li>
+<li><strong>Metadata awareness.</strong> I should treat metadata as potentially sensitive.</li>
+<li><strong>Limited retention.</strong> I should not keep information indefinitely without a clear reason.</li>
+<li><strong>User agency.</strong> Users should have meaningful control over privacy-sensitive features.</li>
+<li><strong>Local processing.</strong> When practical, sensitive processing should happen locally.</li>
+<li><strong>No unnecessary profiling.</strong> Communication data should not automatically become behavioral profiles.</li>
+<li><strong>Controlled inference.</strong> Derived and inferred information should be treated as potentially sensitive.</li>
+<li><strong>Transparency.</strong> Users should understand how their information is handled.</li>
+<li><strong>Human-centered design.</strong> Security and privacy should be designed around how people actually communicate.</li>
+</ol>
+<h2 id="33-the-question-i-want-to-keep-asking">33. The Question I Want to Keep Asking</h2>
+<p>Whenever I add something to Halonyx, I want to ask: <strong>Am I building this because users genuinely need it, or because the system can technically do it?</strong> Those are not the same thing. Just because I can collect presence data does not mean I should. Just because I can retain messages forever does not mean I should. Just because I can analyze communication patterns with AI does not mean I should. Just because I can centralize everything does not mean I should.</p>
+<p>The technical capability of a system should not automatically determine its ethical boundaries. Applying that question to my own build, this is what I would do differently.</p>
+<h3 id="what-i-would-do-differently">What I would do differently</h3>
+<ol>
+<li>I would write a strict protocol specification before any implementation code.</li>
+<li>I would introduce property-based and fuzz testing earlier.</li>
+<li>I would design the multi-device model at the start, not as a later feature.</li>
+<li>I would spend more time on operational security.</li>
+<li>I would get independent cryptographic review before adding so many application-level features.</li>
+</ol>
+<p>And if the goal were a production messenger and not learning, I would use an existing, independently reviewed cryptographic implementation. That is the paradox of the project: building it myself taught me why production systems should not casually reinvent cryptography.</p>
+<h2 id="34-what-i-want-halonyx-to-become">34. What I Want Halonyx to Become</h2>
+<p>I do not want Halonyx to become another application with a chat interface, encryption, and a long list of features. I want it to represent a particular approach to communication.</p>
+<p>I want it to be secure without being unnecessarily invasive, and intelligent without requiring unlimited access to user data. I want it to support workplace collaboration without turning employees into behavioral datasets. I want it to use decentralization where it provides meaningful value without pretending decentralization alone solves privacy, and to use cryptography as a foundation rather than a marketing term. I want its interface to respect the social consequences of communication features. And most of all, I want its architecture to make it possible to say:</p>
+<p><strong>Halonyx does not need to know everything about you to help you communicate securely.</strong></p>
+<p>The technical directions I want to explore next follow from that.</p>
+<h3 id="areas-i-want-to-explore">Areas I want to explore</h3>
+<ul>
+<li>Stronger protocol testing, fuzzing, and formal verification</li>
+<li>Multi-device sessions</li>
+<li>Better delivery guarantees</li>
+<li>Stronger endpoint security and deployment security</li>
+<li>Improved group messaging</li>
+<li>Encrypted media</li>
+<li>Disappearing messages</li>
+<li>Post-quantum cryptographic experimentation</li>
+<li>Independent security review</li>
+</ul>
+<h2 id="35-final-reflection">35. Final Reflection</h2>
+<p>The two works I studied changed how I think about Halonyx. The discussion about the engineering of chat taught me that communication interfaces are not neutral: small design decisions influence how people behave, what they expect from one another, and how comfortable they feel communicating. The privacy discussion taught me something deeper. The problem is not simply whether someone can read a message. The larger question is what happens when communication becomes data, when data becomes a profile, and when profiles become inputs into decisions made by institutions and increasingly capable AI systems.</p>
+<p>I started with the question <strong>&ldquo;How can I build a secure messaging system?&rdquo;</strong> I now find myself asking a much larger one: <strong>&ldquo;How can I build a communication system that protects people without unnecessarily observing them?&rdquo;</strong> For me that is the more interesting problem. It connects cryptography with HCI, security with product design, distributed systems with privacy, and AI with ethics. And it connects software engineering with a more fundamental question about how people should be able to communicate in a digital society.</p>
+<p>I do not think privacy means a system should know nothing, because a functioning communication platform will inevitably need some information. I also do not think security means eliminating every form of monitoring, because organizations have legitimate security and operational requirements. What I want is for those requirements to be clearly defined, limited, and technically constrained. I want to minimize unnecessary information, retention, inference, and surveillance, and I want users to have meaningful control over the communication environment they participate in.</p>
+<p>That leads to the principle I now consider central to Halonyx:</p>
+<blockquote>
+<p>The goal should not be to build the communication platform that knows the most about its users. The goal should be to build the communication platform that remains useful without needing to know everything about them.</p>
+</blockquote>
+<p>When I started, I thought I was building an encrypted messenger. I now think I was building a way to understand trust in software. The project began with whether a server should be able to read a message, and it has become a question about how to protect people without unnecessarily observing them.</p>
+<p><strong>Privacy should not simply be something Halonyx promises. Privacy should be one of the fundamental reasons I am building Halonyx in the first place.</strong></p>
+</article>
+      </div>
+      <p class="article-disclaimer">Halonyx is experimental and educational, and it has not been independently audited.</p>
+    </main>
+    <footer class="site-footer">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <div class="footer-meta"><span>PRIVATE BY DESIGN / 2026</span><span>OPEN SOURCE / AGPL-3.0</span></div>
+      <nav class="footer-links" aria-label="Legal and project links"><a href="../blog.html">BLOG</a><a href="../privacy.html">PRIVACY</a><a href="../terms.html">TERMS</a><a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="A few weeks ago I published a post about building Halonyx which is a Signal Protocol messenger that I..." />
+    <title>Halonyx, Part 2: Interactive Backend Simulator / HALONYX</title>
+    <link rel="stylesheet" href="../css/blog.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="../index.html#protocol">PROTOCOL</a><a href="../index.html#principles">CAPABILITIES</a><a href="../blog.html" aria-current="page">BLOG</a></nav>
+      <a class="nav-cta" href="https://halonyx.onrender.com" target="_blank" rel="noreferrer">OPEN APP <span>↗</span></a>
+    </header>
+    <main class="article-main section-shell">
+      <a class="legal-back" href="../blog.html">← ALL ARTICLES</a>
+      <article class="article-content">
+        <header class="article-top"><span class="blog-kicker">BUILD LOG / DEV COMMUNITY</span><h1>Halonyx, Part 2: Interactive Backend Simulator</h1><div class="article-meta">BY ABHIRAM&nbsp;&nbsp;·&nbsp;&nbsp;JULY 10, 2026</div><p class="article-source">Originally published on <a href="https://dev.to/abhiramp_2005/halonyx-part-2-interactive-backend-simulator-2gkn" target="_blank" rel="noopener noreferrer">DEV Community ↗</a></p></header>
+        <p>A few weeks ago I published a post about building Halonyx which is a Signal Protocol messenger that I implemented from scratch with X3DH key exchange, Double Ratchet, Safety Numbers, and peer-to-peer file transfer via WebTorrent.</p>
+
+<p>The response surprised me. Siyu, who is building agent-to-agent communication infrastructure, spotted that X3DH's "establish a session with someone who isn't present" property was exactly what they needed. Evans, who runs an anonymous Q&amp;A app, asked why I chose X3DH over simpler approaches. Both conversations went deep into protocol design, which was genuinely useful.</p>
+
+<p>But I also noticed something. Most people who clicked through were engineers who already knew what a Diffie-Hellman operation was. Everyone else that include my friends, classmates, faculty members and people who messaged me after seeing a WhatsApp status, read the README, hit the X3DH section, and left.</p>
+
+<p>That gap bothered me. The whole point of publishing Halonyx was to be transparent about how it works, including where it falls short. A README that only engineers can follow is not really transparency.</p>
+
+<p>So I built a simulator.</p>
+
+
+<hr>
+
+<h2>
+  <a name="what-it-is" href="#what-it-is">
+  </a>
+  What it is
+</h2>
+
+<p>A single HTML file with no framework, no build step, no external dependencies  that walks through the complete Halonyx protocol in 14 steps. It runs entirely in the browser.</p>
+
+<p>Two modes, same steps:</p>
+
+<p><strong>Beginner mode</strong> uses plain English and consistent analogies. Bob's key bundle is a padlock on a public noticeboard. The Double Ratchet is a combination lock that changes its own combination after every use. Safety Numbers are two people reading out the same number over a phone call. The technical terms are introduced, explained in one sentence, and then used consistently.</p>
+
+<p><strong>Protocol mode</strong> shows the actual implementation — Halonyx API endpoints, SQLite schemas, WebSocket frame structures, real cryptographic parameters, code snippets from the source.</p>
+
+<p>A toggle switches between them. Both modes share the same interactive elements and the same "show me the technical detail" expandable panel on every step.</p>
+
+
+<hr>
+
+<h2>
+  <a name="what-the-14-steps-cover" href="#what-the-14-steps-cover">
+  </a>
+  What the 14 steps cover
+</h2>
+
+<p>The simulator does not skip the uncomfortable parts.</p>
+
+<p><strong>Key setup and OPK exhaustion.</strong> Bob uploads his X3DH key bundle — Identity Key, Signed Pre-Key, ten One-Time Pre-Keys. The simulator then immediately shows what happens when an attacker drains all ten OPKs on purpose. The session falls back from four DH operations to three. The forward secrecy guarantee weakens. Halonyx has a replenishment endpoint but no automatic client-side top-up yet — the simulator shows this gap explicitly, not buried in a footnote.</p>
+
+<p><strong>X3DH key exchange.</strong> All four DH operations, each labeled with what security property it provides. DH1 binds identities. DH2 and DH3 add ephemeral randomness. DH4 uses the consumed one-time key for deniability. The shared secret appears on Alice's side and Bob's side simultaneously — the server shown passing only an opaque packet between them.</p>
+
+<p><strong>Double Ratchet.</strong> A ratchet that visibly clicks forward with each message, each click producing a different key that disappears immediately after use. The "send message" button lets you click through several messages and watch the keys change. Forward secrecy and post-compromise security labeled as properties that become true as the ratchet advances.</p>
+
+<p><strong>The key substitution attack.</strong> This is step six of fourteen, which is earlier than most explainers put the attack. That is intentional. The simulator shows the attack before showing the defense — Mallory sliding in between Alice and the server, swapping Bob's public key with her own, reading everything, re-encrypting and forwarding so neither party notices. A red banner: "Server reading all messages. Neither party is aware." It is supposed to feel alarming.</p>
+
+<p><strong>Safety Numbers.</strong> The defense against step six. Both parties independently compute SHA-256 of their combined identity keys, formatted as sixty digits in twelve groups of five. They compare over a voice call. An "attack mode" toggle lets you watch the numbers diverge when Mallory is active, and snap back to matching when she is not.</p>
+
+<p><strong>Complete message flow.</strong> The full nine-step sequence from Alice hitting send to Bob reading the message, including the AES-256-GCM encryption, the WebSocket frame structure, the offline mailbox queue, and the delete-on-delivery guarantee. The server shown at every step receiving only an encrypted blob it cannot open.</p>
+
+<p><strong>WebTorrent file transfer.</strong> Files arc over the server entirely, bypassing it. The server receives only the magnet URI. The IP exposure via WebRTC STUN is shown as a labeled limitation with its mitigation — not hidden.</p>
+
+<p><strong>Triple database isolation.</strong> The three SQLite databases and the one-way SHA-256(USID) link that connects them. An attacker stealing app.db shown receiving only hashed identifiers and encrypted payloads.</p>
+
+<p><strong>USID identity.</strong> No phone number. No email required. A 256-bit random number as your identity, with only its hash stored server-side.</p>
+
+
+<hr>
+
+<h2>
+  <a name="why-html-css-and-javascript-with-no-dependencies" href="#why-html-css-and-javascript-with-no-dependencies">
+  </a>
+  Why HTML, CSS, and JavaScript with no dependencies
+</h2>
+
+<p>A few reasons.</p>
+
+<p>The obvious one is that anyone can open it, inspect every line, and verify it matches what the README claims. There is no compiled bundle to dig through.</p>
+
+<p>The less obvious one is that it felt right for a transparency tool to be fully legible. Halonyx is trying to be a system where the security properties are verifiable, not just claimed. A simulator explaining it should work the same way.</p>
+
+<p>The constraint also kept the scope honest. No framework means no component library, no routing, no build configuration — just the explanation itself.</p>
+
+
+<hr>
+
+<h2>
+  <a name="the-part-i-was-most-uncertain-about" href="#the-part-i-was-most-uncertain-about">
+  </a>
+  The part I was most uncertain about
+</h2>
+
+<p>The OPK exhaustion step almost did not make it in.</p>
+
+<p>It is a real limitation. Showing it means admitting that a specific attack on Halonyx produces a measurable weakening of the forward secrecy guarantee on a session. That is not comfortable to put in a public explainer.</p>
+
+<p>But the dev.to comments on the first post convinced me. Vinicius Pereira's comment about the WebCrypto curve inconsistency that X25519 for X3DH alongside P-256 for identity keys is a forced trade-off rather than a mistake, because non-exportable CryptoKey objects were only reliably available for NIST curves until recently that was the most technically useful response I got. It came from being honest about limitations in the original post, not from presenting the project as finished.</p>
+
+<p>The simulator takes the same approach. If you are going to explain how a security system works, the limitations are part of how it works.</p>
+
+
+<hr>
+
+<h2>
+  <a name="try-it" href="#try-it">
+  </a>
+  Try it
+</h2>
+
+<p>The simulator is linked from the Halonyx README and runs directly in the browser.</p>
+
+<p>GitHub: <a href="https://github.com/ABHIRAM-CREATOR06/Halonyx" target="_blank" rel="noopener noreferrer">https://github.com/ABHIRAM-CREATOR06/Halonyx</a><br>
+Previous Post: <a href="https://tinyurl.com/28ru6uzm" target="_blank" rel="noopener noreferrer">https://tinyurl.com/28ru6uzm</a><br>
+Live demo: <br>
+<iframe height="600" src="https://codepen.io/Anonymous-Panda-the-scripter/embed/VYwxooN?height=600&amp;default-tab=result&amp;embed-version=2" scrolling="no" frameborder="no" allowtransparency="true" loading="lazy" style="width: 100%;">
+</iframe>
+</p>
+
+<p>If you find something the beginner explanation gets wrong, or a protocol detail in protocol mode that does not match the source, I want to know. The point is accuracy, not just accessibility.</p>
+
+
+<hr>
+
+
+      </article>
+      
+<section class="dev-discussion" aria-labelledby="discussion-title"><h2 id="discussion-title">DEV.to discussion</h2><p class="dev-discussion-empty">No public comments were available for this article.</p></section>
+<p class="article-disclaimer">This article was originally published on DEV Community by Abhiram. <a href="https://dev.to/abhiramp_2005/halonyx-part-2-interactive-backend-simulator-2gkn" target="_blank" rel="noopener noreferrer">Read the original and join the discussion ↗</a></p>
+    </main>
+    <footer class="site-footer">
+      <a class="brand" href="../index.html" aria-label="Halonyx home"><span class="brand-mark" aria-hidden="true">H</span><span>HALONYX</span></a>
+      <div class="footer-meta"><span>PRIVATE BY DESIGN / 2026</span><span>OPEN SOURCE / AGPL-3.0</span></div>
+      <nav class="footer-links" aria-label="Legal and project links"><a href="../blog.html">BLOG</a><a href="../privacy.html">PRIVACY</a><a href="../terms.html">TERMS</a><a href="https://github.com/ABHIRAM-CREATOR06/Halonyx-Web" target="_blank" rel="noreferrer">GITHUB ↗</a></nav>
+    </footer>
+  </body>
+</html>

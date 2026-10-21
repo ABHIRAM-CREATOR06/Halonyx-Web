@@ -21,7 +21,7 @@ The page introduces Halonyx as a secure messaging product and Atlas as its compa
 
 ### 1. Global navigation
 
-The header contains the Halonyx mark, text navigation for **Protocol**, **Principles**, and **Atlas**, plus a high-contrast **Open App** action. The header remains visually light and does not become a sticky dashboard bar.
+The header contains the Halonyx mark, text navigation for **Protocol**, **Principles**, **Atlas**, **Team**, and **Blog**, plus a high-contrast **Open App** action. The header remains visually light and does not become a sticky dashboard bar.
 
 ### 2. Hero
 
@@ -113,6 +113,8 @@ At widths below 480px, reduce headline scale and section spacing, tighten the pr
 | `frontend/landing/` | Modular landing source (`site.json`, partials, manifest) |
 | `frontend/index.html` | Assembled landing page (`npm run build:landing`) |
 | `frontend/privacy.html` / `frontend/terms.html` | Standalone legal pages linked from the global footer |
+| `frontend/index.html#blog` | Homepage preview of project writing |
+| `frontend/blog.html` / `frontend/blog/` | Themed article index and long-form project article |
 | `frontend/css/landing.css` | Landing entry stylesheet; imports `css/landing/*` modules |
 | `frontend/js/handshake.js` | Interactive X3DH handshake panel script (progressive enhancement) |
 | `frontend/design.html` | Standalone design reference |
