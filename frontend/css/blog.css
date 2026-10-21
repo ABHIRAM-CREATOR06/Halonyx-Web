@@ -1,4 +1,4 @@
-@import './landing.css';
+@import './landing.css?v=20261021';
 
 .blog-main { padding-top: 72px; padding-bottom: 88px; }
 .blog-hero { max-width: 720px; padding: 30px 0 76px; }
