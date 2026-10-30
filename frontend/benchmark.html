@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>Halonyx Benchmark Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#050505;--surface:#11110f;--ink:#f4f4f0;--muted:#8e8e89;--line:#262624;--accent:#f4f4f0;--warn:#8e8e89;--good:#f4f4f0;--mono:'DM Mono',ui-monospace,Menlo,Consolas,monospace;--sans:'Space Grotesk',system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.site-header,main,.report-footer{width:min(1240px,calc(100% - 80px));margin-inline:auto}
+.site-header{height:92px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;font:500 14px var(--mono);letter-spacing:.08em}
+.brand-mark{display:grid;place-items:center;width:28px;height:28px;background:var(--ink);color:var(--bg);font:700 17px var(--sans);clip-path:polygon(50% 0,93% 24%,93% 76%,50% 100%,7% 76%,7% 24%)}
+.report-nav{display:flex;gap:28px;font:400 11px var(--mono);letter-spacing:.08em}
+a{color:inherit;text-decoration:none}a:hover{color:var(--muted)}a:focus-visible{outline:1px solid var(--ink);outline-offset:5px}
+main{padding:74px 0 64px}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.98;margin:0 0 20px;letter-spacing:-.055em;font-weight:500;max-width:900px}
+h2{font-size:1.55rem;line-height:1.15;margin:68px 0 8px;letter-spacing:-.035em;font-weight:500}
+.lead{color:var(--muted);max-width:72ch;margin:0 0 8px;font-size:1.05rem}
+.kicker{font:400 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.sub{color:var(--muted);margin:0 0 18px;font-size:.92rem;max-width:76ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.card{background:transparent;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 20px;min-height:132px}
+.card .n{font:500 1.9rem/1.1 var(--mono);letter-spacing:-.04em}
+.card .l{color:var(--muted);font-size:.82rem;margin-top:10px;line-height:1.45}
+.scroll{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th{font:400 .68rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+td.name small{display:block;color:var(--muted);font-size:.78rem;white-space:normal;max-width:30ch}
+td.num .x{display:block;font-size:.7rem;color:var(--muted)}
+td.best{box-shadow:inset 0 0 0 1px var(--ink);font-weight:700}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;margin:10px 2px 0}
+.bars{background:var(--surface);border:1px solid var(--line);padding:18px;overflow-x:auto}
+.row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 70px;gap:12px;align-items:center;padding:6px 0;min-width:520px}
+.row .t{font-size:.85rem}
+.track{position:relative;height:16px;background:var(--line)}
+.track i{position:absolute;top:0;bottom:0}
+.track b{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.5}
+.row .v{font:500 .82rem var(--mono);text-align:right}
+.axis{display:flex;justify-content:space-between;color:var(--muted);font-size:.75rem;padding:4px 0 0 242px;min-width:520px}
+.notes{display:grid;gap:0;border-top:1px solid var(--line)}
+.note{background:transparent;border:0;border-bottom:1px solid var(--line);border-left:1px solid var(--muted);padding:16px 20px}
+.note.w{border-left-color:var(--ink)}
+.note strong{display:block;font-size:.92rem;font-weight:500}
+.note span{color:var(--muted);font-size:.88rem}
+code{font:.82em var(--mono)}
+.report-footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:32px;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--muted);font:400 11px var(--mono);letter-spacing:.07em}
+@media(max-width:760px){.site-header,main,.report-footer{width:calc(100% - 32px)}.site-header{height:76px}.report-nav{gap:14px;font-size:10px}main{padding-top:54px}h1{font-size:clamp(2.65rem,12vw,4.3rem)}h2{font-size:1.35rem;margin-top:54px}.lead{font-size:1rem}.cards{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}.card{padding:17px 14px;min-height:118px}.card .n{font-size:1.45rem}.card .l{font-size:.75rem}.row{grid-template-columns:minmax(130px,170px) 1fr 62px;gap:8px}.axis{padding-left:178px}.report-footer{font-size:10px}}
+@media(max-width:420px){.site-header,main,.report-footer{width:calc(100% - 28px)}.report-nav{gap:10px;font-size:9px}.brand{gap:8px;font-size:12px}.brand-mark{width:25px;height:25px}.card .n{font-size:1.25rem}.card .l{font-size:.7rem}.legend{font-size:.72rem}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Halonyx home"><span class="brand-mark">H</span><span>HALONYX</span></a>
+  <nav class="report-nav" aria-label="Report navigation"><a href="index.html">PROJECT</a><a href="benchmark.html" aria-current="page">BENCHMARKS</a></nav>
+</header>
+<main>
+<div class="kicker">Engineering / Benchmark report</div>
+<h1>Same code, five machines.</h1>
+<p class="lead">Median latency for 12 Halonyx workloads across Apple M3, Intel Core i5-12450H (native and WSL2), AMD Ryzen 7 7445HS and Intel Core i3-4005U. All values are measured results from recorded runs, not hardware-normalized estimates. Lower is better.</p>
+
+<div class="cards" id="cards"></div>
+
+<h2>Median latency by workload</h2>
+<p class="sub">Each cell shows the median in µs and its multiple of the fastest environment for that row. Shading scales with that multiple. The outlined cell is the row’s fastest.</p>
+<div class="scroll"><table id="heat"></table></div>
+<div class="legend"><span>Light shade: near the fastest</span><span>Dark shade: roughly 10x or more slower</span></div>
+
+<h2>Native Windows vs WSL2, same i5-12450H</h2>
+<p class="sub">WSL2 median divided by native median, log scale. The center line is parity. Bars to the left mean WSL2 was faster.</p>
+<div class="bars" id="bars"></div>
+
+<h2>Environments</h2>
+<div class="scroll"><table>
+<tr><th>Environment</th><th>CPU</th><th>Mode</th><th>Node.js</th><th class="num">Logical CPUs</th><th>Role</th></tr>
+<tr><td>Apple M3</td><td>Apple M3</td><td>macOS, native</td><td>v24.22.2</td><td class="num">8</td><td>Comparative reference (user-reported metadata)</td></tr>
+<tr><td>Core i5-12450H</td><td>Intel Core i5-12450H (12th Gen)</td><td>Windows, native</td><td>v26.12.0</td><td class="num">12 (host)</td><td>Primary development reference</td></tr>
+<tr><td>Ryzen 7 7445HS</td><td>AMD Ryzen 7 7445HS</td><td>Windows, native</td><td>v24.19.0</td><td class="num">12</td><td>Modern x86 comparison</td></tr>
+<tr><td>Core i3-4005U</td><td>Intel Core i3-4005U</td><td>Windows, native</td><td>v24.22.1</td><td class="num">4</td><td>Legacy low-end reference</td></tr>
+<tr><td>WSL2 (i5-12450H)</td><td>Intel Core i5-12450H (host)</td><td>Linux x64 guest</td><td>v26.13.0</td><td class="num">2 (guest)</td><td>Same CPU as native i5, 2 of 12 threads visible</td></tr>
+</table></div>
+
+<h2>Workload definitions</h2>
+<div class="scroll"><table>
+<tr><th>Benchmark</th><th>Parameters</th></tr>
+<tr><td><code>crypto.x25519.keygen</code></td><td>X25519 key generation</td></tr>
+<tr><td><code>crypto.x3dh.initiator</code> / <code>responder</code></td><td>X3DH session initiation and response</td></tr>
+<tr><td><code>crypto.double-ratchet.encrypt</code> / <code>decrypt</code></td><td>1,024-byte payload</td></tr>
+<tr><td><code>dlp.scan.clean</code></td><td>10,240-byte input, 10 built-in rules</td></tr>
+<tr><td><code>group.pairwise-fanout</code></td><td>50 members, 49 recipients, 128-byte payload, relay excluded</td></tr>
+<tr><td><code>sqlite.users.indexed-read</code></td><td>1,000 rows, unique <code>hashed_usid</code> index</td></tr>
+<tr><td><code>sqlite.mailbox.enqueue</code></td><td>1,000 rows</td></tr>
+<tr><td><code>websocket.loopback.ack</code></td><td>1 and 5 concurrent clients, 1,024-byte payload</td></tr>
+<tr><td><code>pipeline.local-loopback-e2e</code></td><td>45-byte payload, from before DLP scan to after decryption, envelope validation and ACK</td></tr>
+</table></div>
+
+<h2>How to read this</h2>
+<div class="notes">
+<div class="note"><strong>M3 leads 8 of 12, not all 12</strong><span>WSL2 on the i5 recorded lower medians for X3DH responder, SQLite indexed read, and both WebSocket ACK tests. The M3 figures are user-reported and do not show Halonyx is tuned for Apple Silicon.</span></div>
+<div class="note w"><strong>WSL2 SQLite result needs a controlled rerun</strong><span>Indexed read is 88.90 µs under WSL2 versus 336.1 µs native. Filesystem location, virtualization and runtime version are all candidates. The data alone does not identify the cause.</span></div>
+<div class="note"><strong>Runtime versions differ</strong><span>Native i5 used Node.js v26.12.0 and WSL2 used v26.13.0, while Ryzen 7 (v24.19.0), M3 (v24.22.2) and i3 (v24.22.1) used the v24 line. Treat cross-machine gaps as observations, not CPU-only comparisons.</span></div>
+<div class="note"><strong>Synthetic and loopback scope</strong><span>SQLite uses deterministic synthetic fixtures. WebSocket and pipeline tests run in a single-process loopback harness, so they say nothing about relay or Internet latency. Browser painting and relay authentication are excluded.</span></div>
+<div class="note"><strong>Why medians</strong><span>Some measurements vary widely. The detailed WSL2 report also has mean, percentiles, SD/CV, throughput and run information.</span></div>
+</div>
+
+</main>
+<footer class="report-footer"><span>HALONYX / BENCHMARK REPORT</span><a href="index.html">BACK TO PROJECT ↗</a><a href="https://github.com/ABHIRAM-CREATOR06/Halonyx/blob/main/scripts/benchmark.js" target="_blank" rel="noreferrer">SOURCE ↗</a></footer>
+<script>
+const E=["Apple M3","Core i5-12450H","Ryzen 7 7445HS","Core i3-4005U","WSL2 (i5-12450H)"];
+const D=[
+["X25519 key generation","crypto.x25519.keygen",40,60.4,128.15,344.1,74.44],
+["X3DH initiation","crypto.x3dh.initiator",310,467.2,880.85,2436,488.51],
+["X3DH response","crypto.x3dh.responder",290,436.45,478.9,1187,254.35],
+["Double Ratchet encrypt, 1 KiB","crypto.double-ratchet.encrypt",62.5,92.75,212.55,594.65,132.25],
+["Double Ratchet decrypt, 1 KiB","crypto.double-ratchet.decrypt",56,81.3,215.4,591.7,130.29],
+["DLP scan, clean 10 KiB","dlp.scan.clean",14,20.66,41.03,101.58,19.23],
+["Group fan-out, 49 recipients","group.pairwise-fanout",3750,9473,11223,28837,10923],
+["SQLite indexed read","sqlite.users.indexed-read",200,336.1,356.45,802.45,88.9],
+["SQLite mailbox enqueue","sqlite.mailbox.enqueue",900,6193,6829,6690,4124],
+["WebSocket ACK, 1 client","websocket.loopback.ack",51.5,68.05,351,665.25,38.21],
+["WebSocket ACK, 5 clients","websocket.loopback.ack",117.5,171.45,764.2,1384,92.13],
+["End-to-end local pipeline","pipeline.local-loopback-e2e",280,419.3,1294,2446,449.96]];
+const f=v=>v>=1000?v.toLocaleString("en-US"):String(v);
+const gm=a=>Math.exp(a.reduce((s,x)=>s+Math.log(x),0)/a.length);
+// cards
+const rel=i=>gm(D.map(r=>r[2+i]/r[3]));
+const wins=D.filter(r=>Math.min(...r.slice(2))===r[2]).length;
+document.getElementById("cards").innerHTML=[
+[wins+" of 12","workloads where Apple M3 has the lowest median"],
+[rel(0).toFixed(2)+"x","M3 geometric mean latency vs native i5-12450H"],
+[rel(3).toFixed(1)+"x","i3-4005U geometric mean latency vs native i5-12450H"],
+[rel(2).toFixed(1)+"x","Ryzen 7 7445HS geometric mean latency vs native i5-12450H"],
+[rel(4).toFixed(2)+"x","WSL2 geometric mean latency vs native i5-12450H"]
+].map(c=>`<div class="card"><div class="n">${c[0]}</div><div class="l">${c[1]}</div></div>`).join("");
+// heatmap
+let h="<tr><th>Workload</th>"+E.map(e=>`<th class="num">${e}</th>`).join("")+"</tr>";
+D.forEach(r=>{
+  const v=r.slice(2),m=Math.min(...v);
+  h+=`<tr><td class="name">${r[0]}<small><code>${r[1]}</code></small></td>`+v.map(x=>{
+    const q=x/m,p=Math.round(4+46*Math.min(1,Math.log10(q)/1.1));
+    return `<td class="num${x===m?" best":""}" style="background:color-mix(in srgb,var(--warn) ${p}%,transparent)">${f(x)}<span class="x">${q===1?"fastest":q.toFixed(1)+"x"}</span></td>`}).join("")+"</tr>";
+});
+document.getElementById("heat").innerHTML=h;
+// wsl bars (log scale, range 0.2x to 5x)
+const lo=Math.log(0.2),hi=Math.log(5);
+let b="";
+D.forEach(r=>{
+  const q=r[6]/r[3],p=(Math.log(q)-lo)/(hi-lo)*100,c=q<1?"var(--good)":"var(--warn)";
+  const l=Math.min(p,50),w=Math.abs(p-50);
+  b+=`<div class="row"><div class="t">${r[0]}</div><div class="track"><i style="left:${l}%;width:${w}%;background:${c}"></i><b></b></div><div class="v">${q.toFixed(2)}x</div></div>`;
+});
+b+=`<div class="axis"><span>0.2x faster in WSL2</span><span>1x</span><span>5x slower in WSL2</span></div>`;
+document.getElementById("bars").innerHTML=b;
+</script>
+</body>
+</html>
